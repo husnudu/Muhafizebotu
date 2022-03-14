@@ -62,12 +62,12 @@ HELP_STRINGS = """
 Salam!  Mənim adım *{}*.
 
  *Əsas* əmrlər mövcuddur:
-  • /help: Bu mesajı PM göndərirsiniz.
-  • /help <modul adı>: PM bu modul haqqında məlumatdır.
-  • /donate: ianə vermək haqqında məlumat!
-  • /settings:
-  • PM-də: bütün dəstəklənən modullar üçün parametrlərinizi sizə göndərəcək.
-  • qrupda: bütün söhbət parametrləri ilə sizi pm-ə yönləndirəcək.
+• /help: Bu mesajı PM göndərirsiniz.
+• /help <modul adı>: PM bu modul haqqında məlumatdır.
+• /donate: ianə vermək haqqında məlumat!
+• /settings:
+• PM-də: bütün dəstəklənən modullar üçün parametrlərinizi sizə göndərəcək.
+• qrupda: bütün söhbət parametrləri ilə sizi pm-ə yönləndirəcək.
 
 
 {}
