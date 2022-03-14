@@ -52,34 +52,34 @@ def get_readable_time(seconds: int) -> str:
 
 
 PM_START_TEXT = """
-Salam🥳 {}, 
-mənim adım {}! 👮🏻‍♀️Mən Telegram qruplarını qorumaq üçün Azərbaycanca Olan Qrup İdarə Botuyam!
+Salam🥳 {}, mənim adım {}!
  Siz mənim mövcud əmrlər siyahısını /help ilə tapa bilərsiniz.
+ mən qrup meneceri botuyam.
 
  """
 
 HELP_STRINGS = """
-Salam!  Mənim adım *{}*.
+Hey there! My name is *{}*.
 
- *Əsas* əmrlər mövcuddur:
-• /help: Bu mesajı PM göndərirsiniz.
-• /help <modul adı>: PM bu modul haqqında məlumatdır.
-• /donate: ianə vermək haqqında məlumat!
-• /settings:
-• PM-də: bütün dəstəklənən modullar üçün parametrlərinizi sizə göndərəcək.
-• qrupda: bütün söhbət parametrləri ilə sizi pm-ə yönləndirəcək.
+*Main* commands available:
+ • /help: PM's you this message.
+ • /help <module name>: PM's you info about that module.
+ • /donate: information on how to donate!
+ • /settings:
+   • in PM: will send you your settings for all supported modules.
+   • in a group: will redirect you to pm, with all that chat's settings.
 
 
 {}
- Və aşağıdakılar:
+And the following:
 """.format(
     dispatcher.bot.first_name, ""
-    if not ALLOW_EXCL else "\nBütün əmrlər / və ya ! ilə istifadə edilə bilər.\n")
+    if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\n")
 
-SAITAMA_IMG = "https://telegra.ph//file/393802b7af92db6a941e2.jpg"
+SAITAMA_IMG = "https://telegra.ph/file/200b2cebc65cfbe720dd0.png"
 
-DONATE_STRING = """Hey, ianə vermək istədiyinizi eşitdiyimə şadam!
- Onu dəstəkləmək;  [𝗖𝗵𝗼𝗰𝗼𝗹𝗮𝘁𝘆𝗤𝘂𝗲𝗲𝗻](t.me/sangramghhangale)"""
+DONATE_STRING = """Heya, glad to hear you want to donate!
+Supporting him; [𝗖𝗵𝗼𝗰𝗼𝗹𝗮𝘁𝘆𝗤𝘂𝗲𝗲𝗻](t.me/sangramghangale)"""
 
 IMPORTED = {}
 MIGRATEABLE = []
@@ -197,7 +197,7 @@ def start(update: Update, context: CallbackContext):
                 reply_markup=InlineKeyboardMarkup(
                     [[
                         InlineKeyboardButton(
-                            text="✅Məni Qrupa Əlavə Et✅",
+                            text="𝗖𝗵𝗼𝗰𝗼𝗹𝗮𝘁𝘆𝗤𝘂𝗲𝗲𝗻👰 Add  to your group",
                             url="t.me/{}?startgroup=true".format(
                                 context.bot.username))
                     ],
@@ -211,8 +211,8 @@ def start(update: Update, context: CallbackContext):
                      ],
                      [
                          InlineKeyboardButton(
-                             text="Sahibim",
-                             url="https://HuseynH")
+                             text="☑️ Source code",
+                             url="https://github.com/sangramghangale/QueenRobot")
                      ]]))
     else:
         update.effective_message.reply_text(
