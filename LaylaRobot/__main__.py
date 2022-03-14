@@ -211,8 +211,8 @@ def start(update: Update, context: CallbackContext):
                      ],
                      [
                          InlineKeyboardButton(
-                             text="☑️ Source code",
-                             url="https://github.com/sangramghangale/QueenRobot")
+                             text="Sahibim",
+                             url="https://HuseynH")
                      ]]))
     else:
         update.effective_message.reply_text(
