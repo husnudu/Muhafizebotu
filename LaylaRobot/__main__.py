@@ -71,15 +71,15 @@ Salam!  Mənim adım *{}*.
 
 
 {}
-And the following:
+ Və aşağıdakılar:
 """.format(
     dispatcher.bot.first_name, ""
-    if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\n")
+    if not ALLOW_EXCL else "\nBütün əmrlər / və ya ! ilə istifadə edilə bilər.\n")
 
-SAITAMA_IMG = "https://telegra.ph/file/200b2cebc65cfbe720dd0.png"
+SAITAMA_IMG = "https://telegra.ph//file/393802b7af92db6a941e2.jpg"
 
-DONATE_STRING = """Heya, glad to hear you want to donate!
-Supporting him; [𝗖𝗵𝗼𝗰𝗼𝗹𝗮𝘁𝘆𝗤𝘂𝗲𝗲𝗻](t.me/sangramghangale)"""
+DONATE_STRING = """Hey, ianə vermək istədiyinizi eşitdiyimə şadam!
+ Onu dəstəkləmək;  [𝗖𝗵𝗼𝗰𝗼𝗹𝗮𝘁𝘆𝗤𝘂𝗲𝗲𝗻](t.me/sangramghhangale)"""
 
 IMPORTED = {}
 MIGRATEABLE = []
@@ -197,7 +197,7 @@ def start(update: Update, context: CallbackContext):
                 reply_markup=InlineKeyboardMarkup(
                     [[
                         InlineKeyboardButton(
-                            text="𝗖𝗵𝗼𝗰𝗼𝗹𝗮𝘁𝘆𝗤𝘂𝗲𝗲𝗻👰 Add  to your group",
+                            text="✅Məni Qrupa Əlavə Et✅",
                             url="t.me/{}?startgroup=true".format(
                                 context.bot.username))
                     ],
