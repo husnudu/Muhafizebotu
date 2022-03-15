@@ -17,7 +17,7 @@ class Approvals(BASE):
         
 
     def __repr__(self):
-        return "<Approve %s>" % self.user_id
+        return "<Təsdiqləmə %s>" % self.user_id
 
 
 Approvals.__table__.create(checkfirst=True)

@@ -21,7 +21,7 @@ class Warns(BASE):
         self.reasons = []
 
     def __repr__(self):
-        return "<{} warns for {} in {} for reasons {}>".format(
+        return "<{} səbəblərə görə {} üçün {} xəbərdarlıq edir {}>".format(
             self.num_warns, self.user_id, self.chat_id, self.reasons)
 
 
@@ -37,7 +37,7 @@ class WarnFilters(BASE):
         self.reply = reply
 
     def __repr__(self):
-        return "<Permissions for %s>" % self.chat_id
+        return "<Üçün icazələr %s>" % self.chat_id
 
     def __eq__(self, other):
         return bool(
@@ -57,7 +57,7 @@ class WarnSettings(BASE):
         self.soft_warn = soft_warn
 
     def __repr__(self):
-        return "<{} has {} possible warns.>".format(self.chat_id,
+        return "<{} mümkün {} xəbərdarlıq etdi.>".format(self.chat_id,
                                                     self.warn_limit)
 
 

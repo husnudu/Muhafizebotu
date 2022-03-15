@@ -19,7 +19,7 @@ class FloodControl(BASE):
         self.chat_id = str(chat_id)  # ensure string
 
     def __repr__(self):
-        return "<flood control for %s>" % self.chat_id
+        return "<flood nəzarət %s>" % self.chat_id
 
 
 class FloodSettings(BASE):
@@ -34,7 +34,7 @@ class FloodSettings(BASE):
         self.value = value
 
     def __repr__(self):
-        return "<{} will executing {} for flood.>".format(
+        return "<{} flood üçün {} icra ediləcək.>".format(
             self.chat_id, self.flood_type)
 
 

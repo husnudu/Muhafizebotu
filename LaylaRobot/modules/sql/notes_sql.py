@@ -25,7 +25,7 @@ class Notes(BASE):
         self.file = file
 
     def __repr__(self):
-        return "<Note %s>" % self.name
+        return "<Qeyd %s>" % self.name
 
 
 class Buttons(BASE):

@@ -67,7 +67,7 @@ class FedsUserSettings(BASE):
         self.user_id = user_id
 
     def __repr__(self):
-        return "<Feds report settings ({})>".format(self.user_id)
+        return "<Feds hesabat parametrləri ({})>".format(self.user_id)
 
 
 class FedSubs(BASE):
@@ -208,7 +208,7 @@ def new_fed(owner_id, fed_name, fed_id):
         FEDERATION_BYOWNER[str(owner_id)] = ({
             'fid': str(fed_id),
             'fname': fed_name,
-            'frules': 'Rules is not set in this federation.',
+            'frules': 'Bu federasiyada qaydalar müəyyən edilməyib.',
             'flog': None,
             'fusers': str({
                 'owner': str(owner_id),
@@ -218,7 +218,7 @@ def new_fed(owner_id, fed_name, fed_id):
         FEDERATION_BYFEDID[str(fed_id)] = ({
             'owner': str(owner_id),
             'fname': fed_name,
-            'frules': 'Rules is not set in this federation.',
+            'frules': 'Bu federasiyada qaydalar müəyyən edilməyib.',
             'flog': None,
             'fusers': str({
                 'owner': str(owner_id),
@@ -228,7 +228,7 @@ def new_fed(owner_id, fed_name, fed_id):
         FEDERATION_BYNAME[fed_name] = ({
             'fid': str(fed_id),
             'owner': str(owner_id),
-            'frules': 'Rules is not set in this federation.',
+            'frules': 'Bu federasiyada qaydalar müəyyən edilməyib',
             'flog': None,
             'fusers': str({
                 'owner': str(owner_id),

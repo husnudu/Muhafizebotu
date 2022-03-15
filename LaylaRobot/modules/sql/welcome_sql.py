@@ -7,213 +7,140 @@ from LaylaRobot.modules.sql import BASE, SESSION
 from sqlalchemy import (BigInteger, Boolean, Column, Integer, String,
                         UnicodeText)
 
-DEFAULT_WELCOME = 'Hey {first}, how are you?'
-DEFAULT_GOODBYE = 'Nice knowing ya!'
+DEFAULT_WELCOME = 'Salam {first}, necəsən?'
+DEFAULT_GOODBYE = 'Ok! Get burdan'
 
 DEFAULT_WELCOME_MESSAGES = [
-    "{first} is here!",  #Discord welcome messages copied
-    "Ready player {first}",
-    "Genos, {first} is here.",
-    "A wild {first} appeared.",
-    "{first} came in like a Lion!",
-    "{first} has joined your party.",
-    "{first} just joined. Can I get a heal?",
-    "{first} just joined the chat - asdgfhak!",
-    "{first} just joined. Everyone, look busy!",
-    "Welcome, {first}. Stay awhile and listen.",
-    "Welcome, {first}. We were expecting you ( ͡° ͜ʖ ͡°)",
-    "Welcome, {first}. We hope you brought pizza.",
-    "Welcome, {first}. Leave your weapons by the door.",
-    "Swoooosh. {first} just landed.",
-    "Brace yourselves. {first} just joined the chat.",
-    "{first} just joined. Hide your bananas.",
-    "{first} just arrived. Seems OP - please nerf.",
-    "{first} just slid into the chat.",
-    "A {first} has spawned in the chat.",
-    "Big {first} showed up!",
-    "Where’s {first}? In the chat!",
-    "{first} hopped into the chat. Kangaroo!!",
-    "{first} just showed up. Hold my beer.",
-    "Challenger approaching! {first} has appeared!",
-    "It's a bird! It's a plane! Nevermind, it's just {first}.",
-    "It's {first}! Praise the sun! \o/",
-    "Never gonna give {first} up. Never gonna let {first} down.",
-    "Ha! {first} has joined! You activated my trap card!",
-    "Hey! Listen! {first} has joined!",
-    "We've been expecting you {first}",
-    "It's dangerous to go alone, take {first}!",
-    "{first} has joined the chat! It's super effective!",
-    "Cheers, love! {first} is here!",
-    "{first} is here, as the prophecy foretold.",
-    "{first} has arrived. Party's over.",
-    "{first} is here to kick butt and chew bubblegum. And {first} is all out of gum.",
-    "Hello. Is it {first} you're looking for?",
-    "{first} has joined. Stay awhile and listen!",
-    "Roses are red, violets are blue, {first} joined this chat with you",
-    "Welcome {first}, Avoid Punches if you can!",
-    "It's a bird! It's a plane! - Nope, its {first}!",
-    "{first} Joined! - Ok.",  #Discord welcome messages end.
-    "All Hail {first}!",
-    "Hi, {first}. Don't lurk, only Villans do that.",
-    "{first} has joined the battle bus.",
-    "A new Challenger enters!",  #Tekken
-    "Ok!",
-    "{first} just fell into the chat!",
-    "Something just fell from the sky! - oh, its {first}.",
-    "{first} Just teleported into the chat!",
-    "Hi, {first}, show me your Hunter License!",  #Hunter Hunter
-    "I'm looking for Garo, oh wait nvm it's {first}.",  #One Punch man s2
-    "Welcome {first}, leaving is not an option!",
-    "Run Forest! ..I mean...{first}.",
-    "{first} do 100 push-ups, 100 sit-ups, 100 squats, and 10km running EVERY SINGLE DAY!!!",  #One Punch ma
-    "Huh?\nDid someone with a disaster level just join?\nOh wait, it's just {first}.",  #One Punch ma 
-    "Hey, {first}, ever heard the King Engine?",  #One Punch ma
-    "Hey, {first}, empty your pockets.",
-    "Hey, {first}!, are you strong?",
-    "Call the Avengers! - {first} just joined the chat.",
-    "{first} joined. You must construct additional pylons.",
-    "Ermagherd. {first} is here.",
-    "Come for the Snail Racing, Stay for the Chimichangas!",
-    "Who needs Google? You're everything we were searching for.",
-    "This place must have free WiFi, cause I'm feeling a connection.",
-    "Speak friend and enter.",
-    "Welcome you are",
-    "Welcome {first}, your princess is in another castle.",
-    "Hi {first}, welcome to the dark side.",
-    "Hola {first}, beware of people with disaster levels",
-    "Hey {first}, we have the droids you are looking for.",
-    "Hi {first}\nThis isn't a strange place, this is my home, it's the people who are strange.",
-    "Oh, hey {first} what's the password?",
-    "Hey {first}, I know what we're gonna do today",
-    "{first} just joined, be at alert they could be a spy.",
-    "{first} joined the group, read by Mark Zuckerberg, CIA and 35 others.",
-    "Welcome {first}, watch out for falling monkeys.",
-    "Everyone stop what you’re doing, We are now in the presence of {first}.",
-    "Hey {first}, do you wanna know how I got these scars?",
-    "Welcome {first}, drop your weapons and proceed to the spy scanner.",
-    "Stay safe {first}, Keep 3 meters social distances between your messages.",  #Corona memes lmao
-    "Hey {first}, Do you know I once One-punched a meteorite?",
-    "You’re here now {first}, Resistance is futile",
-    "{first} just arrived, the force is strong with this one.",
-    "{first} just joined on president’s orders.",
-    "Hi {first}, is the glass half full or half empty?",
-    "Yipee Kayaye {first} arrived.",
-    "Welcome {first}, if you’re a secret agent press 1, otherwise start a conversation",
-    "{first}, I have a feeling we’re not in Kansas anymore.",
-    "They may take our lives, but they’ll never take our {first}.",
-    "Coast is clear! You can come out guys, it’s just {first}.",
-    "Welcome {first}, pay no attention to that guy lurking.",
-    "Welcome {first}, may the force be with you.",
-    "May the {first} be with you.",
-    "{first} just joined. Hey, where's Perry?",
-    "{first} just joined. Oh, there you are, Perry.",
-    "Ladies and gentlemen, I give you ...  {first}.",
-    "Behold my new evil scheme, the {first}-Inator.",
-    "Ah, {first} the Platypus, you're just in time... to be trapped.",
-    "*snaps fingers and teleports {first} here*",
-    "{first}! What is a fish and a rabbit combined?",  #Lifereload - kaizoku member.
-    "{first} just arrived. Diable Jamble!",  #One Piece Sanji
-    "{first} just arrived. Aschente!",  #No Game No Life
-    "{first} say Aschente to swear by the pledges.",  #No Game No Life
-    "{first} just joined. El Psy congroo!",  #Steins Gate
-    "Irasshaimase {first}!",  #weeabo shit
-    "Hi {first}, what is 1000-7?",  #tokyo ghoul
-    "Come. I don't want to destroy this place",  #hunter x hunter
-    "I... am... Whitebeard!...wait..wrong anime.",  #one Piece
-    "Hey {first}...have you ever heard these words?",  #BNHA
-    "Can't a guy get a little sleep around here?",  #Kamina Falls – Gurren Lagann
-    "It's time someone put you in your place, {first}.",  #Hellsing
-    "Unit-01's reactivated..",  #Neon Genesis: Evangelion
-    "Prepare for trouble...And make it double",  #Pokemon
-    "Hey {first}, are You Challenging Me?",  #Shaggy
-    "Oh? You're Approaching Me?",  #jojo
-    "{first} just warped into the group!",
-    "I..it's..it's just {first}.",
-    "Sugoi, Dekai. {first} Joined!",
-    "{first}, do you know gods of death love apples?",  #Death Note owo
-    "I'll take a potato chip.... and eat it",  #Death Note owo
-    "Oshiete oshiete yo sono shikumi wo!",  #Tokyo Ghoul
-    "Kaizoku ou ni...nvm wrong anime.",  #op
-    "{first} just joined! Gear.....second!",  #Op
-    "Omae wa mou....shindeiru",
-    "Hey {first}, the leaf village lotus blooms twice!",  #Naruto stuff begins from here
-    "{first} Joined! Omote renge!",
-    "{first} joined!, Gate of Opening...open!",
-    "{first} joined!, Gate of Healing...open!",
-    "{first} joined!, Gate of Life...open!",
-    "{first} joined!, Gate of Pain...open!",
-    "{first} joined!, Gate of Limit...open!",
-    "{first} joined!, Gate of View...open!",
-    "{first} joined!, Gate of Shock...open!",
-    "{first} joined!, Gate of Death...open!",
-    "{first}! I, Madara! declare you the strongest",
-    "{first}, this time I'll lend you my power. ",  #Kyuubi to naruto
-    "{first}, welcome to the hidden leaf village!",  # Naruto thingies end here
-    "In the jungle, you must wait...until the dice read five or eight.",  #Jumanji stuff
-    "Dr.{first} Famed archeologist and international explorer,\nWelcome to Jumanji!\nJumanji's Fate is up to you now.",
-    "{first}, this will not be an easy mission - monkeys slow the expedition.",  #End of Jumanji stuff
+    "{first} burada!",  #Discord welcome messages copied
+    "Gözəl, {first} burada.",
+    "{first} Aslan kimi içəri girdi!",
+    "{first} Qrupunda görməyimizə çox şadıq.Xoş gəldiniz 🥰",
+    "Xoş gəlmisiniz, {first}. Sizi gözləyirdik",
+    "Xoş gəlmisiniz,{first}. Ümid edirik pizza gətirdiniz.",
+    "Xoş Gəldin, {first}. Silahlarını qapının yanında qoy.",
+    "Vicuuuu. {first} indicə göydən endi.",
+    "Möhkəm dayanın. {first} söhbətə qatıldı.",
+    "{first} yeni qatıldı. Yeməklərinizi gizlədin.",
+    "{first} qrupumuza gəlişinlə bizim üçün bir fərqlilik gətirəcəyivə inanırıq 🥰 ",
+    "{first} qrupumuza xoş gəldiz. İnanırıq ki, burda keçirəcəyiniz dəqiqlər sizin üçün xoş və mənalı dəqiqələr olacaq🤗.",
+    "{first} Dostluğun, hörmətin və sayqının kəsişdiyi qrupumuzda sizi görmək bizim üçün çox xoş oldu😍",
+    "Sizi gözləyirdik😄✨ {first}",
+    "Heyy {first} qrupuna xoş gəldin🤗 Qrupumuzda qalıb bizlərə qoşularaq gününüzü xoş və əyləncəli keçirə bilərsiz🥳 Xoş əyləncələr✨💫",
+    "{first}, Mark Zuckerberg, CIA və digər 35 nəfər tərəfindən oxunan qrupa qatıldı."
+    "Salam {first}, düşən meymunlara diqqət yetirin.",
+    "Hər kəs etdiyiniz işi dayandırır. Biz indi {first}."
+    "Hey {first}, bu izləri necə aldığımı bilmək istəyirsən?",
+    "Salam {first}, silahlarınızı atın və casus skanerinə keçin.",
+    "Təhlükəsiz qalın {first}, mesajlarınız arasında 3 metr sosial məsafə saxlayın.", #Corona memes lmao
+    "Hey {first}, bir dəfə meteoritlə bir yumruq vurduğumu bilirsinizmi?",
+    "İndi buradasınız {first}, müqavimət əbəsdir",
+    "{first} yeni gəldi, qüvvə bu ilə güclüdür.",
+    "{first} yeni prezidentin əmrləri ilə qatıldı.",
+    "Salam {first}, stəkanın yarısı doludur, yoxsa yarısı boş?",
+    "Yipee Kayaye {first} gəldi.",
+    "Xoş gəldiniz {first}, əgər gizli agentsinizsə 1-ə basın, əks halda söhbətə başlayın",
+    "{first}, artıq Kanzasda olmadığımızı hiss edirəm.",
+    "Onlar canımızı ala bilərlər, amma heç vaxt {first} almayacaqlar.",
+    "Sahil aydındır! Çıxa bilərsiniz uşaqlar, sadəcə {first}.",
+    "Xoş gəldiniz {first}, gizlənən oğlana əhəmiyyət verməyin.",
+    "Xoş gəlmisiniz {əvvəlcə}, güc sizinlə ola bilər.",
+    "{first} sizinlə olsun.",
+    "{first} yenicə qatıldı. Hey, Perry haradadır?",
+    "{first} yenicə qatıldı. Oh, buradasan, Perry.",
+    "Xanımlar və cənablar, sizə verirəm ... {first}.",
+    "barmaqlarını çırpır və teleportları {first} burada",
+    "{first}! Balıq və dovşan nədir?", #Lifereload - kaizoku üzvü
+    "Salam {first}, 1000-7 nədir?", # Tokyo ghoul
+    "Gəl. Buranı dağıtmaq istəmirəm", #hunter x hunter
+    "Hey {first} ... bu sözləri heç eşitmisən?", #BNHA
+    "Bir adam burada biraz yata bilmirmi?", # Kamina Falls - Gurren Lagann
+    "Birinin səni yerinə qoyma vaxtı gəldi, ilk növbədə.", #Hellsing
+    "Unit-01 yenidən aktivləşdi ..", # Neon Genesis: Evangelion
+    "Çətinliyə hazırlaşın ... Və ikiqat edin", # Pokemon
+    "Hey {first}, məni çağırırsan?", # Shaggy
+    "Oh? Mənə yaxınlaşırsan?", #Jojo
+    "{first} yalnız qrupa düşdü!",
+    "Mən..bu ... sadəcə {first}.",
+    "Sugoi, Dekai. {first} Qoşuldu!",
+    "{first}, ölüm tanrılarını bilirsinizmi almaları sevirsiniz?", # Ölüm Qeydləri var
+    "Mən bir kartof çipi götürəcəm .... yeyəcəyəm", # Ölüm Qeydləri var
+    "{first} qoşuldu !, Açılış Qapısı ... açıq!",
+    "{first} qoşuldu !, Şəfa Qapısı ... açıq!",
+    "{first} qoşuldu !, Həyat Qapısı ... açıq!",
+    "{first} qoşuldu !, Ölüm Qapısı ... açıq!",
+    "{first}! Mən, Botam! səni ən güclü elan edirəm",
+    "{first}, bu dəfə sənə gücümü verəcəyəm.", #Kyuubi naruto-ya
+    "{first}, gizli yarpaq kəndinə xoş gəlmisiniz!", # Naruto şeyləri burada bitir
+    "Ormanda gözləmək lazımdır ... zar beş-səkkiz oxunana qədər.", #Jumanji məhsulları
+    "Dr. {first} Məşhur arxeoloq və beynəlxalq kəşfiyyatçı, \ nJumanjiyə xoş gəldiniz! \ NJumanjinin taleyi sizin ixtiyarınızdadır.",
+    "{first}, bu asan bir missiya olmayacaq - meymunlar ekspedisiyanı yavaşlatır.", # Jumanji məhsullarının sonu  
+  
+
+
+    
 ]
 DEFAULT_GOODBYE_MESSAGES = [
-    "{first} will be missed.",
-    "{first} just went offline.",
-    "{first} has left the lobby.",
-    "{first} has left the clan.",
-    "{first} has left the game.",
-    "{first} has fled the area.",
-    "{first} is out of the running.",
-    "Nice knowing ya, {first}!",
-    "It was a fun time {first}.",
-    "We hope to see you again soon, {first}.",
-    "I donut want to say goodbye, {first}.",
-    "Goodbye {first}! Guess who's gonna miss you :')",
-    "Goodbye {first}! It's gonna be lonely without ya.",
-    "Please don't leave me alone in this place, {first}!",
-    "Good luck finding better shit-posters than us, {first}!",
-    "You know we're gonna miss you {first}. Right? Right? Right?",
-    "Congratulations, {first}! You're officially free of this mess.",
-    "{first}. You were an opponent worth fighting.",
-    "You're leaving, {first}? Yare Yare Daze.",
-    "Bring him the photo",
-    "Go outside!",
-    "Ask again later",
-    "Think for yourself",
-    "Question authority",
-    "You are worshiping a sun god",
-    "Don't leave the house today",
-    "Give up!",
-    "Marry and reproduce",
-    "Stay asleep",
-    "Wake up",
-    "Look to la luna",
-    "Steven lives",
-    "Meet strangers without prejudice",
-    "A hanged man will bring you no luck today",
-    "What do you want to do today?",
-    "You are dark inside",
-    "Have you seen the exit?",
-    "Get a baby pet it will cheer you up.",
-    "Your princess is in another castle.",
-    "You are playing it wrong give me the controller",
-    "Trust good people",
-    "Live to die.",
-    "When life gives you lemons reroll!",
-    "Well, that was worthless",
-    "I fell asleep!",
-    "May your troubles be many",
-    "Your old life lies in ruin",
-    "Always look on the bright side",
-    "It is dangerous to go alone",
-    "You will never be forgiven",
-    "You have nobody to blame but yourself",
-    "Only a sinner",
-    "Use bombs wisely",
-    "Nobody knows the troubles you have seen",
-    "You look fat you should exercise more",
-    "Follow the zebra",
-    "Why so blue?",
-    "The devil in disguise",
-    "Go outside",
-    "Always your head in the clouds",
+     "{first} qaçırılacaq.",
+     "{username} Gorbagor oldu.",
+    "{first} yeni oflayn oldu.",
+    "{first} lobbidən ayrıldı.",
+    "{first} klandan ayrıldı.",
+    "{first} oyunu tərk etdi.",
+    "{first} ərazidən qaçdı.",
+    "{first} işləmir.",
+    "Nə yaxşı bilirsən, {first}!",
+    "Əyləncəli bir vaxt idi {first}.",
+    "Ümid edirik ki, tezliklə yenidən görüşəcəyik, {first}.",
+    "Mən vida etmək istəyirəm, ilk növbədə..",
+    "Əlvida {first}! Kim olduğunu darıxacaq: ')",
+    "Əlvida {first}! Sənsiz tənha olacaq.",
+    "Xahiş edirəm məni bu yerdə tək qoymayın, {first}!",
+    "Bizdən daha yaxşı bok afişalar tapmaqda uğurlar, {first}!",
+    "Bilirsən, sənin üçün darıxacağıq {first}. Doğrudanmı? Təbiki yox 😂",
+    "Təbrik edirik, {first}! Rəsmi olaraq bu qarışıqlıqdan azadsınız.",
+    "{first}. Döyüşməyə dəyər bir rəqib idiniz.",
+    "Gedirsən, {first}? ",
+    "Fotonu ona gətir",
+    "Çölə çıxın!",
+    "Sonra yenidən soruşun",
+    "Özün haqqında düşün",
+    "Sual səlahiyyətləri",
+    "Günəş tanrısına ibadət edirsən",
+    "Bu gün evdən çıxma",
+    "İmtina etmək!",
+    "Evlənin və çoxalın",
+    "Yuxuda qal",
+    "Oyan Get",
+    "La luna bax",
+    "Steven yaşayır bilirdin?",
+    "Yabancılarla qərəzsiz görüşün",
+    "Asılan adam bu gün sizə bəxt gətirməyəcək",
+    "Bu gün nə etmək istəyirsən?",
+    "İçiniz qaranlıqdır",
+    "Çıxışını gördünmü?",
+    "Bir körpə ev heyvanı alın, bu sizi sevindirəcək.",
+    "Şahzadəniz başqa bir qaladadır.",
+    "Yanlış oynayırsan mənə nəzarətçi ver",
+    "Yaxşı insanlara etibar edin",
+    "Ölmək üçün yaşa.",
+    "Həyat sənə limon təkrarladıqda!",
+    "Yaxşı, bu dəyərsiz idi",
+    "Mən yuxuya getdim!",
+    "Dərdləriniz çox olsun",
+    "Köhnə həyatınız xarabadır",
+    "Həmişə parlaq tərəfə baxın",
+    "Tək getmək təhlükəlidir",
+    "Sən heç vaxt bağışlanmayacaqsan",
+    "Özünüzdən başqa günahlandıracaq heç kiminiz yoxdur",
+    "Yalnız günahkar",
+    "Bomba ağıllı istifadə edin",
+    "Gördüyünüz bəlaları heç kim bilmir",
+    "Şişman görünürsən, daha çox idman etməlisən",
+    "Zebranı izləyin",
+    "Niyə bu qədər mavisən?",
+    "Maskalanmış şeytan",
+    "Çölə çıx",
+    "Hər zaman başınız bulud içindədir",
 ]
 # Line 111 to 152 are references from https://bindingofisaac.fandom.com/wiki/Fortune_Telling_Machine
 
@@ -241,7 +168,7 @@ class Welcome(BASE):
         self.should_goodbye = should_goodbye
 
     def __repr__(self):
-        return "<Chat {} should Welcome new users: {}>".format(
+        return "<Qrup Əhli {} yeni istifadəçiləri salamlamalıyıq: {}>".format(
             self.chat_id, self.should_welcome)
 
 
@@ -306,7 +233,7 @@ class CleanServiceSetting(BASE):
         self.chat_id = str(chat_id)
 
     def __repr__(self):
-        return "<Chat used clean service ({})>".format(self.chat_id)
+        return "<Çat təmiz xidmətdən istifadə etdi ({})>".format(self.chat_id)
 
 
 Welcome.__table__.create(checkfirst=True)
