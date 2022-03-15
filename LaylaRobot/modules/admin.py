@@ -86,7 +86,7 @@ def promote(update: Update, context: CallbackContext) -> str:
 
     bot.sendMessage(
         chat.id,
-        f"Sucessfully promoted <b>{user_member.user.first_name or user_id}</b>!",
+        f"Uğurla irəli çəkildi <b>{user_member.user.first_name or user_id}</b>!",
         parse_mode=ParseMode.HTML)
 
     log_message = (
@@ -116,7 +116,7 @@ def demote(update: Update, context: CallbackContext) -> str:
     user_id = extract_user(message, args)
     if not user_id:
         message.reply_text(
-            "You don't seem to be referring to a user or the ID specified is incorrect.."
+            "Siz istifadəçiyə istinad etmirsiniz və ya göstərilən ID səhvdir.."
         )
         return
 
@@ -127,7 +127,7 @@ def demote(update: Update, context: CallbackContext) -> str:
 
     if user_member.status == 'creator':
         message.reply_text(
-            "This person CREATED the chat, how would I demote them?")
+            "Söhbəti bu şəxs yaradıb, mən onu necə aşağı salım?")
         return
 
     if not user_member.status == 'administrator':
