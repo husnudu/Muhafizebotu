@@ -53,12 +53,12 @@ def promote(update: Update, context: CallbackContext) -> str:
 
     if user_member.status == 'administrator' or user_member.status == 'creator':
         message.reply_text(
-            "How am I meant to promote someone that's already an admin?")
+            "Artıq admin olan birini necə tanıtmaq istəyirəm?")
         return
 
     if user_id == bot.id:
         message.reply_text(
-            "I can't promote myself! Get an admin to do it for me.")
+            "Mən özümü təbliğ edə bilmirəm!  Bunu mənim üçün etmək üçün bir admin tapın.")
         return
 
     # set same perms as bot - bot can't assign higher perms than itself!
@@ -79,9 +79,9 @@ def promote(update: Update, context: CallbackContext) -> str:
     except BadRequest as err:
         if err.message == "User_not_mutual_contact":
             message.reply_text(
-                "I can't promote someone who isn't in the group.")
+                "Qrupda olmayan birini irəli sürə bilmərəm.")
         else:
-            message.reply_text("An error occured while promoting.")
+            message.reply_text("Təqdimat zamanı xəta baş verdi.")
         return
 
     bot.sendMessage(
