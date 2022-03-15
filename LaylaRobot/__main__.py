@@ -354,13 +354,13 @@ def send_settings(chat_id, user_id, user=False):
                                    for mod in USER_SETTINGS.values())
             dispatcher.bot.send_message(
                 user_id,
-                "Bunlar cari parametrlərinizdir:" + "\n\n" + settings,
+                "These are your current settings:" + "\n\n" + settings,
                 parse_mode=ParseMode.MARKDOWN)
 
         else:
             dispatcher.bot.send_message(
                 user_id,
-                "Deyəsən, istifadəçiyə xüsusi parametrlər mövcud deyil :'(",
+                "Seems like there aren't any user specific settings available :'(",
                 parse_mode=ParseMode.MARKDOWN)
 
     else:
