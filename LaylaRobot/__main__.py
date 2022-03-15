@@ -165,7 +165,7 @@ def start(update: Update, context: CallbackContext):
                     update.effective_chat.id, HELPABLE[mod].__help__,
                     InlineKeyboardMarkup([[
                         InlineKeyboardButton(
-                            text="geri", callback_data="help_back")
+                            text="⬅️ Geri", callback_data="help_back")
                     ]]))
             elif args[0].lower() == "markdownhelp":
                 IMPORTED["extras"].markdown_help_sender(update)
@@ -197,7 +197,7 @@ def start(update: Update, context: CallbackContext):
                 reply_markup=InlineKeyboardMarkup(
                     [[
                         InlineKeyboardButton(
-                            text="𝗖𝗵𝗼𝗰𝗼𝗹𝗮𝘁𝘆𝗤𝘂𝗲𝗲𝗻👰 Add  to your group",
+                            text="✅Məni Qrupa Əlavə Et✅",
                             url="t.me/{}?startgroup=true".format(
                                 context.bot.username))
                     ],
