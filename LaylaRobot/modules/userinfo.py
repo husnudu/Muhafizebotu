@@ -271,7 +271,7 @@ def info(update: Update, context: CallbackContext):
     disaster_level_present = False
 
     if user.id == OWNER_ID:
-        text += "\n\nBu Şəxs Mənim *Sahibim Dir Ona İlişəni Ciyərin Dağıdaram🥰 (Sahib)*."
+        text += "\n\nBotdakı rütbəsi *🤵🏼Qurucu(Sahib)*."
         disaster_level_present = True
     elif user.id in DEV_USERS:
         text += "\n\nBotdakı rütbəsi '🧞‍♂️Qəhrəmanlar assosasiyası'."
@@ -290,7 +290,7 @@ def info(update: Update, context: CallbackContext):
         disaster_level_present = True
 
     if disaster_level_present:
-        text += ' [<a href="https://t.me/AlmondEyessChat">?(KlikEt)</a>]'.format(
+        text += ' [<a href="https://t.me/AlmondEyessChat">(KlikEt)</a>]'.format(
             bot.username)
 
     try:
