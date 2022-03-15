@@ -271,7 +271,7 @@ def info(update: Update, context: CallbackContext):
     disaster_level_present = False
 
     if user.id == OWNER_ID:
-        text += "\n\nBu Şəxs Mənim ❤️*Sahibim Dir Ona İlişəni Ciyərin Dağıdaram🥰 (Sahib)*."
+        text += "\n\nBu Şəxs Mənim *Sahibim Dir Ona İlişəni Ciyərin Dağıdaram🥰 (Sahib)*."
         disaster_level_present = True
     elif user.id in DEV_USERS:
         text += "\n\nBotdakı rütbəsi '🧞‍♂️Qəhrəmanlar assosasiyası'."
