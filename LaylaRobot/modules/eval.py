@@ -123,7 +123,7 @@ def clear(update: Update, context: CallbackContext):
     global namespaces
     if update.message.chat_id in namespaces:
         del namespaces[update.message.chat_id]
-    send("Cleared locals.", bot, update)
+    send("Yerli sakinlər təmizləndi.", bot, update)
 
 
 EVAL_HANDLER = CommandHandler(('e', 'ev', 'eva', 'eval'), evaluate)
@@ -134,4 +134,4 @@ dispatcher.add_handler(EVAL_HANDLER)
 dispatcher.add_handler(EXEC_HANDLER)
 dispatcher.add_handler(CLEAR_HANDLER)
 
-__mod_name__ = "Eval Module"
+__mod_name__ = "🎰Eval modulu"

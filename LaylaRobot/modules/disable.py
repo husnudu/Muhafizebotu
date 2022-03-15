@@ -141,14 +141,14 @@ if is_module_loaded(FILENAME):
             if disable_cmd in set(DISABLE_CMDS + DISABLE_OTHER):
                 sql.disable_command(chat.id, str(disable_cmd).lower())
                 update.effective_message.reply_text(
-                    f"Disabled the use of `{disable_cmd}`",
+                    f"İstifadəsi Aktifdir`{disable_cmd}`",
                     parse_mode=ParseMode.MARKDOWN)
             else:
                 update.effective_message.reply_text(
-                    "That command can't be disabled")
+                    "Bu əmr deaktiv edilə bilməz")
 
         else:
-            update.effective_message.reply_text("What should I disable?")
+            update.effective_message.reply_text("Nəyi söndürməliyəm?")
 
     @run_async
     @connection_status
@@ -163,14 +163,14 @@ if is_module_loaded(FILENAME):
                 module = importlib.import_module(disable_module)
             except:
                 update.effective_message.reply_text(
-                    "Does that module even exist?")
+                    "Bu modul mövcuddurmu?")
                 return
 
             try:
                 command_list = module.__command_list__
             except:
                 update.effective_message.reply_text(
-                    "Module does not contain command list!")
+                    "Modulda komanda siyahısı yoxdur!")
                 return
 
             disabled_cmds = []
@@ -189,17 +189,17 @@ if is_module_loaded(FILENAME):
             if disabled_cmds:
                 disabled_cmds_string = ", ".join(disabled_cmds)
                 update.effective_message.reply_text(
-                    f"Disabled the uses of `{disabled_cmds_string}`",
+                    f"Deaktivlərin istifadəsi bağlıdı `{disabled_cmds_string}`",
                     parse_mode=ParseMode.MARKDOWN)
 
             if failed_disabled_cmds:
                 failed_disabled_cmds_string = ", ".join(failed_disabled_cmds)
                 update.effective_message.reply_text(
-                    f"Commands `{failed_disabled_cmds_string}` can't be disabled",
+                    f"Əmrlər `{failed_disabled_cmds_string}` bağlana bilməz",
                     parse_mode=ParseMode.MARKDOWN)
 
         else:
-            update.effective_message.reply_text("What should I disable?")
+            update.effective_message.reply_text("Nəyi söndürməliyəm?")
 
     @run_async
     @connection_status
@@ -214,13 +214,13 @@ if is_module_loaded(FILENAME):
 
             if sql.enable_command(chat.id, enable_cmd):
                 update.effective_message.reply_text(
-                    f"Enabled the use of `{enable_cmd}`",
+                    f"İstifadəsini aktivləşdirdi `{enable_cmd}`",
                     parse_mode=ParseMode.MARKDOWN)
             else:
-                update.effective_message.reply_text("Is that even disabled?")
+                update.effective_message.reply_text("Hətta bağlamaq?")
 
         else:
-            update.effective_message.reply_text("What should I enable?")
+            update.effective_message.reply_text("Nə etməliyəm?")
 
     @run_async
     @connection_status
@@ -236,14 +236,14 @@ if is_module_loaded(FILENAME):
                 module = importlib.import_module(enable_module)
             except:
                 update.effective_message.reply_text(
-                    "Does that module even exist?")
+                    "Bu modul mövcuddurmu?")
                 return
 
             try:
                 command_list = module.__command_list__
             except:
                 update.effective_message.reply_text(
-                    "Module does not contain command list!")
+                    "Modulda komanda siyahısı yoxdur!")
                 return
 
             enabled_cmds = []
@@ -261,17 +261,17 @@ if is_module_loaded(FILENAME):
             if enabled_cmds:
                 enabled_cmds_string = ", ".join(enabled_cmds)
                 update.effective_message.reply_text(
-                    f"Enabled the uses of `{enabled_cmds_string}`",
+                    f"İstifadəsini aktivləşdirdi `{enabled_cmds_string}`",
                     parse_mode=ParseMode.MARKDOWN)
 
             if failed_enabled_cmds:
                 failed_enabled_cmds_string = ", ".join(failed_enabled_cmds)
                 update.effective_message.reply_text(
-                    f"Are the commands `{failed_enabled_cmds_string}` even disabled?",
+                    f"Əmrlərdir `{failed_enabled_cmds_string}` even disabled?",
                     parse_mode=ParseMode.MARKDOWN)
 
         else:
-            update.effective_message.reply_text("What should I enable?")
+            update.effective_message.reply_text("Nə etməliyəm?")
 
     @run_async
     @connection_status
@@ -282,21 +282,21 @@ if is_module_loaded(FILENAME):
             for cmd in set(DISABLE_CMDS + DISABLE_OTHER):
                 result += f" - `{escape_markdown(cmd)}`\n"
             update.effective_message.reply_text(
-                f"The following commands are toggleable:\n{result}",
+                f"Aşağıdakı əmrlər dəyişdirilə bilər:\n{result}",
                 parse_mode=ParseMode.MARKDOWN)
         else:
-            update.effective_message.reply_text("No commands can be disabled.")
+            update.effective_message.reply_text("Heç bir əmr deaktiv edilə bilməz.")
 
     # do not async
     def build_curr_disabled(chat_id: Union[str, int]) -> str:
         disabled = sql.get_all_disabled(chat_id)
         if not disabled:
-            return "No commands are disabled!"
+            return "Heç bir əmr deaktiv edilmir!"
 
         result = ""
         for cmd in disabled:
             result += " - `{}`\n".format(escape_markdown(cmd))
-        return "The following commands are currently restricted:\n{}".format(
+        return "Aşağıdakı əmrlər hazırda məhduddur:\n{}".format(
             result)
 
     @run_async
@@ -330,17 +330,17 @@ if is_module_loaded(FILENAME):
     dispatcher.add_handler(TOGGLE_HANDLER)
 
     __help__ = """
-    • `/cmds`*:* check the current status of disabled commands
+    • `/cmds`*:* deaktiv əmrlərin cari vəziyyətini yoxlayın
 
-    *Admins only:*
-    • `/enable <cmd name>`*:* enable that command
-    • `/disable <cmd name>`*:* disable that command
-    • `/enablemodule <module name>`*:* enable all commands in that module
-    • `/disablemodule <module name>`*:* disable all commands in that module
-    • `/listcmds`*:* list all possible toggleable commands
+    *Sadəcə adminlər:*
+    • `/enable <cmd ad>`*:* bu əmri təmin edin
+    • `/disable <cmd ad>`*:* bu əmri deaktiv edin
+    • `/enablemodule <modul ad>`*:* həmin moduldakı bütün əmrləri aktivləşdirin
+    • `/disablemodule <modul ad>`*:* həmin moduldakı bütün əmrləri söndürün
+    • `/listcmds`*:* mümkün olan dəyişdirilə bilən əmrlər siyahı
     """
 
-    __mod_name__ = "Disabling"
+    __mod_name__ = "♨️Söndürmə"
 
 else:
     DisableAbleCommandHandler = CommandHandler

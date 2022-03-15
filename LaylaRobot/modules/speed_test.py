@@ -15,11 +15,11 @@ def convert(speed):
 @run_async
 def speedtestxyz(update: Update, context: CallbackContext):
     buttons = [[
-        InlineKeyboardButton("Image", callback_data="speedtest_image"),
-        InlineKeyboardButton("Text", callback_data="speedtest_text")
+        InlineKeyboardButton("Şəkil", callback_data="speedtest_image"),
+        InlineKeyboardButton("Yazı", callback_data="speedtest_text")
     ]]
     update.effective_message.reply_text(
-        "Select SpeedTest Mode", reply_markup=InlineKeyboardMarkup(buttons))
+        "Sürət Test Modu seçin", reply_markup=InlineKeyboardMarkup(buttons))
 
 
 @run_async
@@ -27,12 +27,12 @@ def speedtestxyz_callback(update: Update, context: CallbackContext):
     query = update.callback_query
 
     if query.from_user.id in DEV_USERS:
-        msg = update.effective_message.edit_text('Running a speedtest....')
+        msg = update.effective_message.edit_text('Sürət test yoxlanır...')
         speed = speedtest.Speedtest()
         speed.get_best_server()
         speed.download()
         speed.upload()
-        replymsg = 'SpeedTest Results:'
+        replymsg = 'Sürət Test Nəticələri'
 
         if query.data == 'speedtest_image':
             speedtest_image = speed.results.share()
@@ -42,12 +42,12 @@ def speedtestxyz_callback(update: Update, context: CallbackContext):
 
         elif query.data == 'speedtest_text':
             result = speed.results.dict()
-            replymsg += f"\nDownload: `{convert(result['download'])}Mb/s`\nUpload: `{convert(result['upload'])}Mb/s`\nPing: `{result['ping']}`"
+            replymsg += f"\nDownload Yükləmə: `{convert(result['download'])}Mb/s`\nUpload Yükləmə: `{convert(result['upload'])}Mb/s`\nPing: `{result['ping']}`"
             update.effective_message.edit_text(
                 replymsg, parse_mode=ParseMode.MARKDOWN)
     else:
         query.answer(
-            "You are required to join Heroes Association to use this command.")
+            "Bu əmri istifadə etmək üçün Qəhrəmanlar Birliyinə qoşulmağınız tələb olunur.")
 
 
 SPEED_TEST_HANDLER = DisableAbleCommandHandler("speedtest", speedtestxyz)
@@ -57,6 +57,6 @@ SPEED_TEST_CALLBACKHANDLER = CallbackQueryHandler(
 dispatcher.add_handler(SPEED_TEST_HANDLER)
 dispatcher.add_handler(SPEED_TEST_CALLBACKHANDLER)
 
-__mod_name__ = "SpeedTest"
+__mod_name__ = "📶Sürət Test"
 __command_list__ = ["speedtest"]
 __handlers__ = [SPEED_TEST_HANDLER, SPEED_TEST_CALLBACKHANDLER]

@@ -53,16 +53,16 @@ async def download_lyrics(v_url):
             return
     query = v_url.pattern_match.group(1)
     if not query:
-        await v_url.reply("You haven't specified which song to look for!")
+        await v_url.reply("Hansı mahnını axtaracağını dəqiqləşdirməmisiniz!")
         return
     song = Song.find_song(query)
     if song:
         if song.lyrics:
             reply = song.format()
         else:
-            reply = "Couldn't find any lyrics for that song!"
+            reply = "Bu mahnının sözlərini tapa bilmədim!"
     else:
-        reply = "Song not found!"
+        reply = "Mahnı tapılmadı!"
     if len(reply) > 4090:
         with open("lyrics.txt", "w") as f:
             f.write(f"{reply}")
@@ -70,6 +70,6 @@ async def download_lyrics(v_url):
             await v_url.client.send_file(
                 v_url.chat_id,
                 file=f,
-                caption="Message length exceeded max limit! Sending as a text file.")
+                caption="Mesaj uzunluğu maksimum həddi keçdi! Mətn faylı kimi göndərilir.")
     else:
         await v_url.reply(reply)

@@ -27,14 +27,14 @@ def send_rules(update, chat_id, from_pm=False):
         if excp.message == "Chat not found" and from_pm:
             bot.send_message(
                 user.id,
-                "The rules shortcut for this chat hasn't been set properly! Ask admins to "
-                "fix this.\nMaybe they forgot the hyphen in ID")
+                "Bu söhbət üçün qaydalar qısayolu düzgün qurulmayıb! Adminlərdən soruşun "
+                "bunu düzəlt.\nBəlkə də şəxsiyyət vəsiqəsindəki unutdular")
             return
         else:
             raise
 
     rules = sql.get_rules(chat_id)
-    text = f"The rules for *{escape_markdown(chat.title)}* are:\n\n{rules}"
+    text = f"Qaydalar *{escape_markdown(chat.title)}* üçün var:\n\n{rules}"
 
     if from_pm and rules:
         bot.send_message(
@@ -45,19 +45,19 @@ def send_rules(update, chat_id, from_pm=False):
     elif from_pm:
         bot.send_message(
             user.id,
-            "The group admins haven't set any rules for this chat yet. "
-            "This probably doesn't mean it's lawless though...!")
+            "Qrup administratorları bu söhbət üçün hələ heç bir qayda təyin etməyiblər. "
+            "Bu yəqin ki, qanunsuz olduğu anlamına gəlmir...!")
     elif rules:
         update.effective_message.reply_text(
-            "Please click the button below to see the rules.",
+            "Xahiş olunur qaydaları görmək üçün aşağıdakı düyməni vurun.",
             reply_markup=InlineKeyboardMarkup([[
                 InlineKeyboardButton(
-                    text="Rules", url=f"t.me/{bot.username}?start={chat_id}")
+                    text="Qaydalar", url=f"t.me/{bot.username}?start={chat_id}")
             ]]))
     else:
         update.effective_message.reply_text(
-            "The group admins haven't set any rules for this chat yet. "
-            "This probably doesn't mean it's lawless though...!")
+            "Qrup administratorları bu söhbət üçün hələ heç bir qayda təyin etməyiblər. "
+            "Bu yəqin ki, qanunsuz olduğu anlamına gəlmir...!")
 
 
 @run_async
@@ -77,7 +77,7 @@ def set_rules(update: Update, context: CallbackContext):
 
         sql.set_rules(chat_id, markdown_rules)
         update.effective_message.reply_text(
-            "Successfully set rules for this group.")
+            "Bu qrup üçün uğurla qaydalar qurun.")
 
 
 @run_async
@@ -85,11 +85,11 @@ def set_rules(update: Update, context: CallbackContext):
 def clear_rules(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
     sql.set_rules(chat_id, "")
-    update.effective_message.reply_text("Successfully cleared rules!")
+    update.effective_message.reply_text("Qaydalar uğurla silindi!")
 
 
 def __stats__():
-    return f"• {sql.num_chats()} chats have rules set."
+    return f"• {sql.num_chats()} söhbətlərin müəyyən edilmiş qaydaları var."
 
 
 def __import_data__(chat_id, data):
@@ -103,18 +103,18 @@ def __migrate__(old_chat_id, new_chat_id):
 
 
 def __chat_settings__(chat_id, user_id):
-    return f"This chat has had it's rules set: `{bool(sql.get_rules(chat_id))}`"
+    return f"Bu söhbətdə qaydalar müəyyən edilmişdir: `{bool(sql.get_rules(chat_id))}`"
 
 
 __help__ = """
- • `/rules`*:* get the rules for this chat.
+ • `/rules`*:* bu söhbət üçün qaydaları əldə edin.
 
 *Admins only:*
- • `/setrules <your rules here>`*:* set the rules for this chat.
- • `/clearrules`*:* clear the rules for this chat.
+ • `/setrules <qaydaların bura>`*:* bu söhbət üçün qaydaları təyin edin.
+ • `/clearrules`*:* bu söhbət üçün qaydaları silin.
 """
 
-__mod_name__ = "Rules"
+__mod_name__ = "🛡Qaydalar"
 
 GET_RULES_HANDLER = CommandHandler("rules", get_rules, filters=Filters.group)
 SET_RULES_HANDLER = CommandHandler("setrules", set_rules, filters=Filters.group)

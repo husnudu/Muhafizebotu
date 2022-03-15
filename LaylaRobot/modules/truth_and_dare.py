@@ -7,18 +7,18 @@ from LaylaRobot.modules.disable import DisableAbleCommandHandler
 from telegram.ext import CallbackContext, run_async
 
 @run_async
-def truth(update: Update, context: CallbackContext):
+def dogruluq(update: Update, context: CallbackContext):
     args = context.args
     update.effective_message.reply_text(random.choice(truth_and_dare_string.TRUTH))
 
 @run_async
-def dare(update: Update, context: CallbackContext):
+def cesaret(update: Update, context: CallbackContext):
     args = context.args
     update.effective_message.reply_text(random.choice(truth_and_dare_string.DARE))
 
     
-TRUTH_HANDLER = DisableAbleCommandHandler("truth", truth)
-DARE_HANDLER = DisableAbleCommandHandler("dare", dare)
+TRUTH_HANDLER = DisableAbleCommandHandler("dogruluq", dogruluq)
+DARE_HANDLER = DisableAbleCommandHandler("cesaret", cesaret)
 
 
 dispatcher.add_handler(TRUTH_HANDLER)

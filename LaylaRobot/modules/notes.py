@@ -63,10 +63,10 @@ def get(update, context, notename, show_none=True, no_format=False):
                         from_chat_id=JOIN_LOGGER,
                         message_id=note.value)
                 except BadRequest as excp:
-                    if excp.message == "Message to forward not found":
+                    if excp.message == "Göndərmə mesajı tapılmadı":
                         message.reply_text(
-                            "This message seems to have been lost - I'll remove it "
-                            "from your notes list.")
+                            "Bu mesaj itirilmiş kimi görünür - onu siləcəm "
+                            "qeydlər siyahınızdan.")
                         sql.rm_note(chat_id, notename)
                     else:
                         raise
@@ -77,12 +77,12 @@ def get(update, context, notename, show_none=True, no_format=False):
                         from_chat_id=chat_id,
                         message_id=note.value)
                 except BadRequest as excp:
-                    if excp.message == "Message to forward not found":
+                    if excp.message == "Göndərmə mesajı tapılmadı":
                         message.reply_text(
-                            "Looks like the original sender of this note has deleted "
-                            "their message - sorry! Get your bot admin to start using a "
-                            "message dump to avoid this. I'll remove this note from "
-                            "your saved notes.")
+                            "Deyəsən bu qeydin orijinal göndəricisi silindi"
+                            "mesajları - bağışlayın! Bot administratorunuzu a istifadə etməyə başlamaq üçün alın "
+                            "Bunun qarşısını almaq üçün mesaj atın. Bu qeydi çıxaracağam "
+                            "qeyd etdiyiniz qeydlər.")
                         sql.rm_note(chat_id, notename)
                     else:
                         raise
@@ -149,25 +149,25 @@ def get(update, context, notename, show_none=True, no_format=False):
             except BadRequest as excp:
                 if excp.message == "Entity_mention_user_invalid":
                     message.reply_text(
-                        "Looks like you tried to mention someone I've never seen before. If you really "
-                        "want to mention them, forward one of their messages to me, and I'll be able "
-                        "to tag them!")
+                        "Deyəsən əvvəllər görmədiyim birinin adını çəkməyə çalışdın. Əgər həqiqətən "
+                        "onlardan bəhs etmək istəyirəm, mesajlarından birini mənə çatdırın, bacaracağam "
+                        "onları etiketləmək üçün!")
                 elif FILE_MATCHER.match(note.value):
                     message.reply_text(
-                        "This note was an incorrectly imported file from another bot - I can't use "
-                        "it. If you really need it, you'll have to save it again. In "
-                        "the meantime, I'll remove it from your notes list.")
+                        "Bu qeyd başqa bir botdan səhvən gətirilmiş bir fayl idi - istifadə edə bilmirəm"
+                        "Əgər həqiqətən ehtiyacınız varsa, onu yenidən saxlamalısınız."
+                        "bu vaxt qeydlər siyahınızdan siləcəm.")
                     sql.rm_note(chat_id, notename)
                 else:
                     message.reply_text(
-                        "This note could not be sent, as it is incorrectly formatted. Ask in "
-                        f"@{SUPPORT_CHAT} if you can't figure out why!")
+                        "Bu qeyd səhv biçimləndiyindən göndərilə bilmədi. Soruş "
+                        f"@{SUPPORT_CHAT} nəyi anlaya bilmirsənsə!")
                     LOGGER.exception("Could not parse message #%s in chat %s",
                                      notename, str(chat_id))
                     LOGGER.warning("Message was: %s", str(note.value))
         return
     elif show_none:
-        message.reply_text("This note doesn't exist")
+        message.reply_text("Bu qeyd yoxdur")
 
 
 @run_async
@@ -179,7 +179,7 @@ def cmd_get(update: Update, context: CallbackContext):
     elif len(args) >= 1:
         get(update, context, args[0].lower(), show_none=True)
     else:
-        update.effective_message.reply_text("Get rekt")
+        update.effective_message.reply_text("Rekt alın")
 
 
 @run_async
@@ -203,7 +203,7 @@ def slash_get(update: Update, context: CallbackContext):
         note_name = str(noteid).strip(">").split()[1]
         get(update, context, note_name, show_none=False)
     except IndexError:
-        update.effective_message.reply_text("Wrong Note ID 😾")
+        update.effective_message.reply_text("Səhv Qeyd ID 😾")
 
 
 @run_async
@@ -216,29 +216,29 @@ def save(update: Update, context: CallbackContext):
     note_name, text, data_type, content, buttons = get_note_type(msg)
     note_name = note_name.lower()
     if data_type is None:
-        msg.reply_text("Dude, there's no note")
+        msg.reply_text("Dostum, heç bir qeyd yoxdur")
         return
 
     sql.add_note_to_db(
         chat_id, note_name, text, data_type, buttons=buttons, file=content)
 
     msg.reply_text(
-        f"Yas! Added `{note_name}`.\nGet it with /get `{note_name}`, or `#{note_name}`",
+        f"Yes! Əlavə edildi `{note_name}`.\nAlın /get `{note_name}`, or `#{note_name}`",
         parse_mode=ParseMode.MARKDOWN)
 
     if msg.reply_to_message and msg.reply_to_message.from_user.is_bot:
         if text:
             msg.reply_text(
-                "Seems like you're trying to save a message from a bot. Unfortunately, "
-                "bots can't forward bot messages, so I can't save the exact message. "
-                "\nI'll save all the text I can, but if you want more, you'll have to "
-                "forward the message yourself, and then save it.")
+                "Bir mesajı botdan saxlamağa çalışdığınıza bənzəyir.Təəssüfki, "
+                "botlar bot mesajlarını ötürə bilmir, ona görə də dəqiq mesajı saxlaya bilmirəm  "
+                "\nBacardığım bütün mətni saxlayacam, amma daha çoxunu istəyirsənsə etməli olursan "
+                "mesajı özünüz yönləndirin və sonra qeyd edin.")
         else:
             msg.reply_text(
-                "Bots are kinda handicapped by telegram, making it hard for bots to "
-                "interact with other bots, so I can't save this message "
-                "like I usually would - do you mind forwarding it and "
-                "then saving that new message? Thanks!")
+                "Botlar telegramla passif olur və botların işini çətinləşdirir "
+                "digər botlarla qarşılıqlı əlaqədə olduğum üçün bu mesajı saxlaya bilmirəm "
+                "adətən istədiyim kimi - onu ötürməyə "
+                "sonra bu yeni mesajı yadda saxlamağa fikir vermirsinizmi? Təşəkkürlər! ")
         return
 
 
@@ -252,10 +252,10 @@ def clear(update: Update, context: CallbackContext):
         notename = args[0].lower()
 
         if sql.rm_note(chat_id, notename):
-            update.effective_message.reply_text("Successfully removed note.")
+            update.effective_message.reply_text("Qeyd uğurla silindi.")
         else:
             update.effective_message.reply_text(
-                "That's not a note in my database!")
+                "Bu mənim verilənlər bazamda olan bir qeyd deyil!")
 
 
 @run_async
@@ -265,14 +265,14 @@ def clearall(update: Update, context: CallbackContext):
     member = chat.get_member(user.id)
     if member.status != "creator" and user.id not in DRAGONS:
         update.effective_message.reply_text(
-            "Only the chat owner can clear all notes at once.")
+            "Yalnız söhbət sahibi bir anda bütün qeydləri silə bilər.")
     else:
         buttons = InlineKeyboardMarkup([[
             InlineKeyboardButton(
-                text="Delete all notes", callback_data="notes_rmall")
+                text="Bütün qeydləri silin", callback_data="notes_rmall")
         ], [InlineKeyboardButton(text="Cancel", callback_data="notes_cancel")]])
         update.effective_message.reply_text(
-            f"Are you sure you would like to clear ALL notes in {chat.title}? This action cannot be undone.",
+            f"BÜTÜN qeydləri silmək istədiyinizə əminsiniz{chat.title}? Bu əməliyyat geri qaytarıla bilməz.",
             reply_markup=buttons,
             parse_mode=ParseMode.MARKDOWN)
 
@@ -290,23 +290,23 @@ def clearall_btn(update: Update, context: CallbackContext):
                 for notename in note_list:
                     note = notename.name.lower()
                     sql.rm_note(chat.id, note)
-                message.edit_text("Deleted all notes.")
+                message.edit_text("Bütün qeydlər silindi.")
             except BadRequest:
                 return
 
         if member.status == "administrator":
-            query.answer("Only owner of the chat can do this.")
+            query.answer("Bunu yalnız söhbət sahibi edə bilər.")
 
         if member.status == "member":
-            query.answer("You need to be admin to do this.")
+            query.answer("Bunu etmək üçün admin olmalısınız.")
     elif query.data == 'notes_cancel':
         if member.status == "creator" or query.from_user.id in DRAGONS:
-            message.edit_text("Clearing of all notes has been cancelled.")
+            message.edit_text("Bütün qeydlərin silinməsi ləğv edildi.")
             return
         if member.status == "administrator":
-            query.answer("Only owner of the chat can do this.")
+            query.answer("Bunu yalnız söhbət sahibi edə bilər.")
         if member.status == "member":
-            query.answer("You need to be admin to do this.")
+            query.answer("Bunu etmək üçün admin olmalısınız.")
 
 
 @run_async
@@ -315,7 +315,7 @@ def list_notes(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
     note_list = sql.get_all_chat_notes(chat_id)
     notes = len(note_list) + 1
-    msg = "Get note by `/notenumber` or `#notename` \n\n  *ID*    *Note* \n"
+    msg = "Tərəfindən qeyd alın `/notenumber` və ya `#notename` \n\n  *ID*    *Qeyd* \n"
     for note_id, note in zip(range(1, notes), note_list):
         if note_id < 10:
             note_name = f"`{note_id:2}.`  `#{(note.name.lower())}`\n"
@@ -328,7 +328,7 @@ def list_notes(update: Update, context: CallbackContext):
         msg += note_name
 
     if not note_list:
-        update.effective_message.reply_text("No notes in this chat!")
+        update.effective_message.reply_text("Bu söhbətdə qeyd yoxdur!")
 
     elif len(msg) != 0:
         update.effective_message.reply_text(msg, parse_mode=ParseMode.MARKDOWN)
@@ -457,9 +457,9 @@ def __import_data__(chat_id, data):
                 chat_id,
                 document=output,
                 filename="failed_imports.txt",
-                caption="These files/photos failed to import due to originating "
-                "from another bot. This is a telegram API restriction, and can't "
-                "be avoided. Sorry for the inconvenience!",
+                caption="Bu fayllar / şəkillər mənşəli olduğu üçün idxal edilmədi "
+                "başqa bir botdan. Bu telegram API məhdudlaşdırmasıdır və edə bilməz "
+                "qarşısını alımıb. Narahatçılığa görə üzr istəyirik!",
             )
 
 
@@ -473,29 +473,29 @@ def __migrate__(old_chat_id, new_chat_id):
 
 def __chat_settings__(chat_id, user_id):
     notes = sql.get_all_chat_notes(chat_id)
-    return f"There are `{len(notes)}` notes in this chat."
+    return f"Bu söhbətdə qeydlər `{len(notes)}` var."
 
 
 __help__ = """
- • `/get <notename>`*:* get the note with this notename
- • `#<notename>`*:* same as /get
- • `/notes` or `/saved`*:* list all saved notes in this chat
- • `/number` *:* Will pull the note of that number in the list. 
-If you would like to retrieve the contents of a note without any formatting, use `/get <notename> noformat`. This can \
-be useful when updating a current note.
+ • `/get <qeydadı>`*:* bu adı ilə cavab alın
+ • `#<notename>`*:* eyni ilə /get
+ • `/notes` vəya `/saved`*:* bu söhbətdəki bütün qeydləri qeyd edin
+ • `/number` *:* Siyahıda həmin nömrənin qeydini çəkəcəkdir.
+Bir qeydin məzmununu heç bir formatlaşdırmadan əldə etmək istəyirsinizsə, istifadə edin `/get <qeydadı> `.Bu cari \
+bir qeyd yenilənərkən faydalı ola bilər.
 
-*Admins only:*
- • `/save <notename> <notedata>`*:* saves notedata as a note with name notename
-A button can be added to a note by using standard markdown link syntax - the link should just be prepended with a \
-`buttonurl:` section, as such: `[somelink](buttonurl:example.com)`. Check `/markdownhelp` for more info.
- • `/save <notename>`*:* save the replied message as a note with name notename
- • `/clear <notename>`*:* clear note with this name
- • `/removeallnotes`*:* removes all notes from the group
- *Note:* Note names are case-insensitive, and they are automatically converted to lowercase before getting saved.
+*Yalnız Adminlər:*
+ • `/save <qeydadı> <cavab>`*:* qeyd edilmiş məlumatları ad adı ilə qeyd kimi qeyd edir
+Standart işarələnmə sintaksisindən istifadə edərək bir qeydə bir düymə əlavə edilə bilər - keçid yalnız a ilə əlavə olunmalıdır\
+`buttonurl:` bölmə, belədir:`[istediyinlink](buttonurl:misal.com)`. Yoxlayın `/markdownhelp` daha çox məlumat üçün.
+ • `/save <qeydadı>`*:* cavab mesajını ad adı ilə qeyd kimi qeyd edin
+ • `/clear <qeydadı>`*:* qeyd silin
+ • `/removeallnotes`*:* bütün qeydləri qrupdan çıxarır
+ *QEYD:* Qeyd adları hərflərə həssasdır və qeyd olunmadan əvvəl avtomatik olaraq kiçik hərflərə çevrilirlər.
  
 """
 
-__mod_name__ = "Notes"
+__mod_name__ = "📃Qeydlər"
 
 GET_HANDLER = CommandHandler("get", cmd_get)
 HASH_GET_HANDLER = MessageHandler(Filters.regex(r"^#[^\s]+"), hash_get)

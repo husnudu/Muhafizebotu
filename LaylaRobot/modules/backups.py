@@ -40,7 +40,7 @@ def import_data(update, context):
         chat_name = dispatcher.bot.getChat(conn).title
     else:
         if update.effective_message.chat.type == "private":
-            update.effective_message.reply_text("This is a group only command!")
+            update.effective_message.reply_text("Bu yalnız bir qrup əmridir!")
             return ""
 
         chat = update.effective_chat
@@ -52,7 +52,7 @@ def import_data(update, context):
                 msg.reply_to_message.document.file_id)
         except BadRequest:
             msg.reply_text(
-                "Try downloading and uploading the file yourself again, This one seem broken to me!"
+                "Yenidən özünüzü yüklə və yükləməyə çalışın, bu mənim üçün pozulmuş görünür!"
             )
             return
 
@@ -64,7 +64,7 @@ def import_data(update, context):
         # only import one group
         if len(data) > 1 and str(chat.id) not in data:
             msg.reply_text(
-                "There are more than one group in this file and the chat.id is not same! How am i supposed to import it?"
+                "Bu sənəddə birdən çox qrup var və chat.id eyni deyil! Onu necə idxal etməliyəm?"
             )
             return
 
@@ -72,19 +72,19 @@ def import_data(update, context):
         try:
             if data.get(str(chat.id)) is None:
                 if conn:
-                    text = "Backup comes from another chat, I can't return another chat to chat *{}*".format(
+                    text = "Yedək başqa bir söhbətdən gəlir, başqa bir sohbeti söhbətə qaytara bilmirəm *{}*".format(
                         chat_name)
                 else:
-                    text = "Backup comes from another chat, I can't return another chat to this chat"
+                    text = "Yedək başqa bir söhbətdən gəlir, başqa bir sohbəti bu söhbətə qaytara bilmirəmt"
                 return msg.reply_text(text, parse_mode="markdown")
         except Exception:
             return msg.reply_text(
-                "There was a problem while importing the data!")
+                "Məlumatı idxal edərkən bir problem oldu!")
         # Check if backup is from self
         try:
             if str(context.bot.id) != str(data[str(chat.id)]["bot"]):
                 return msg.reply_text(
-                    "Backup from another bot that is not suggested might cause the problem, documents, photos, videos, audios, records might not work as it should be."
+                    "Təklif olunmayan başqa bir botdan yedəkləmə problemə səbəb ola bilər, sənədlər, fotolar, videolar, audiolar, qeydlər lazım olduğu kimi işləməyə bilər."
                 )
         except Exception:
             pass
@@ -99,11 +99,11 @@ def import_data(update, context):
                 mod.__import_data__(str(chat.id), data)
         except Exception:
             msg.reply_text(
-                "An error occurred while recovering your data. The process failed. If you experience a problem with this, please take it to @OnePunchSupport"
+                "Məlumatlarınızı bərpa edərkən bir səhv baş verdi. Proses alınmadı. Bununla bağlı bir problem yaşarsanız, xahiş edirəm @AzRobotGroup-a müraciət edin"
             )
 
             LOGGER.exception(
-                "Imprt for the chat %s with the name %s failed.",
+                "Adı ilə %s söhbət üçün %s idxal alınmadı. ",
                 str(chat.id),
                 str(chat.title),
             )
@@ -113,9 +113,9 @@ def import_data(update, context):
         # NOTE: consider default permissions stuff?
         if conn:
 
-            text = "Backup fully restored on *{}*.".format(chat_name)
+            text = "Yedəkləmə tamamilə bərpa edildi *{}*.".format(chat_name)
         else:
-            text = "Backup fully restored"
+            text = "Yedəkləmə tamamilə bərpa edildi"
         msg.reply_text(text, parse_mode="markdown")
 
 
@@ -135,7 +135,7 @@ def export_data(update, context):
         # chat_name = dispatcher.bot.getChat(conn).title
     else:
         if update.effective_message.chat.type == "private":
-            update.effective_message.reply_text("This is a group only command!")
+            update.effective_message.reply_text("Bu yalnız bir qrup əmridir!")
             return ""
         chat = update.effective_chat
         chat_id = update.effective_chat.id
@@ -149,7 +149,7 @@ def export_data(update, context):
             timeformatt = time.strftime("%H:%M:%S %d/%m/%Y",
                                         time.localtime(checkchat.get("value")))
             update.effective_message.reply_text(
-                "You can only backup once a day!\nYou can backup again in about `{}`"
+                "Gündə yalnız bir dəfə ehtiyat nüsxə edə bilərsiniz!\nYenidən təqib edə bilərsiniz `{}`"
                 .format(timeformatt),
                 parse_mode=ParseMode.MARKDOWN,
             )
@@ -326,7 +326,7 @@ def export_data(update, context):
     try:
         context.bot.sendMessage(
             JOIN_LOGGER,
-            "*Successfully imported backup:*\nChat: `{}`\nChat ID: `{}`\nOn: `{}`"
+            "*Uğurla idxal yedəkləmə:*\Söhbet: `{}`\nChat ID: `{}`\Haqqında: `{}`"
             .format(chat.title, chat_id, tgl),
             parse_mode=ParseMode.MARKDOWN,
         )
@@ -335,7 +335,7 @@ def export_data(update, context):
     context.bot.sendDocument(
         current_chat_id,
         document=open("LaylaRobot{}.backup".format(chat_id), "rb"),
-        caption="*Successfully Exported backup:*\nChat: `{}`\nChat ID: `{}`\nOn: `{}`\n\nNote: This `LaylaRobot-Backup` was specially made for notes."
+        caption="*Yedəkləmə uğurla ixrac edildi:*\nSöhbət: `{}`\Söhbət ID: `{}`\nOn: `{}`\nQeyd: Bu ŞirinÇayBoT-Yedəkləmə qeydlər üçün xüsusi hazırlanmışdır."
         .format(chat.title, chat_id, tgl),
         timeout=360,
         reply_to_message_id=msg.message_id,
@@ -363,15 +363,14 @@ def get_chat(chat_id, chat_data):
         return {"status": False, "value": False}
 
 
-__mod_name__ = "Backups"
+__mod_name__ = "🎗Yedəkləmə"
 
 __help__ = """
-*Only for group owner:*
+*Sadəcə adminlər:*
 
- • /import: Reply to the backup file for the butler / emilia group to import as much as possible, making transfers very easy! \
- Note that files / photos cannot be imported due to telegram restrictions.
-
- • /export: Export group data, which will be exported are: rules, notes (documents, images, music, video, audio, voice, text, text buttons) \
+ • /import:Transferləri çox asanlaşdıraraq, uşağın / emilia qrupunun mümkün qədər çox idxal etməsi üçün ehtiyat sənədinə cavab verin! \
+ Qeyd edək ki, teleqram məhdudiyyətləri səbəbindən sənədlər / şəkillər idxal edilə bilməz.
+ • /export: İxrac ediləcək qrup məlumatlarını ixrac edin: qaydalar, qeydlər (sənədlər, şəkillər, musiqi, video, səs, səs, mətn, mətn düymələri) \
 
 """
 

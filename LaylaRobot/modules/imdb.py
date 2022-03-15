@@ -32,11 +32,11 @@ async def is_register_admin(chat, user):
     else:
         return None
 
-@layla(pattern="^/imdb (.*)") 
-async def imdb(e):
+@layla(pattern="^/film (.*)") 
+async def film(e):
  if e.is_group:
   if not (await is_register_admin(e.input_chat, e.message.sender_id)):
-     await event.reply("😜 Hai.. You are not admin..🤭 You can't use this command.. But you can use in my pm🙈")
+     await event.reply("😜Salam,Siz admin deyilsiniz..🤭 Bu əmrdən istifadə edə bilməzsiniz.. Amma mənim pm-də istifadə edə bilərsiniz🙈")
      return
  try:
     movie_name = e.pattern_match.group(1)
@@ -101,17 +101,17 @@ async def imdb(e):
     else:
     	mov_rating = 'Not available'
     await e.reply('<a href='+poster+'>&#8203;</a>'
-    			'<b>Title : </b><code>'+mov_title+
+    			'<b>Başlıq : </b><code>'+mov_title+
     			'</code>\n<code>'+mov_details+
-    			'</code>\n<b>Rating : </b><code>'+mov_rating+
-    			'</code>\n<b>Country : </b><code>'+mov_country[0]+
-    			'</code>\n<b>Language : </b><code>'+mov_language[0]+
-    			'</code>\n<b>Director : </b><code>'+director+
-    			'</code>\n<b>Writer : </b><code>'+writer+
-    			'</code>\n<b>Stars : </b><code>'+stars+
-    			'</code>\n<b>IMDB Url : </b>'+mov_link+
-    			'\n<b>Story Line : </b>'+story_line,
+    			'</code>\n<b>Reytinq : </b><code>'+mov_rating+
+    			'</code>\n<b>Ölkə : </b><code>'+mov_country[0]+
+    			'</code>\n<b>Dil : </b><code>'+mov_language[0]+
+    			'</code>\n<b>Direktor : </b><code>'+director+
+    			'</code>\n<b>Yazıçı : </b><code>'+writer+
+    			'</code>\n<b>Ulduz : </b><code>'+stars+
+    			'</code>\n<b>IMDB Link : </b>'+mov_link+
+    			'\n<b>Hekayə Məzmun : </b>'+story_line,
     			link_preview = True , parse_mode = 'HTML'
     			)
  except IndexError:
-     await e.reply("Please enter a valid movie name !")
+     await e.reply("Xahiş edirəm etibarlı bir film adı daxil edin !")

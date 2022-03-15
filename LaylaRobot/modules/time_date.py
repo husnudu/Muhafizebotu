@@ -43,13 +43,13 @@ def generate_time(to_find: str, findtype: List[str]) -> str:
 
     try:
         result = (
-            f"<b>🌍Country :</b> <code>{country_name}</code>\n"
-            f"<b>⏳Zone Name :</b> <code>{country_zone}</code>\n"
-            f"<b>🗺Country Code :</b> <code>{country_code}</code>\n"
-            f"<b>🌞Daylight saving :</b> <code>{daylight_saving}</code>\n"
-            f"<b>🌅Day :</b> <code>{current_day}</code>\n"
-            f"<b>⌚Current Time :</b> <code>{current_time}</code>\n"
-            f"<b>📆Current Date :</b> <code>{current_date}</code>"
+            f"<b>🌍Ölkə :</b> <code>{country_name}</code>\n"
+            f"<b>⏳Zona Adı :</b> <code>{country_zone}</code>\n"
+            f"<b>🗺Ölkə Kodu :</b> <code>{country_code}</code>\n"
+            f"<b>🌞Yaz işığı :</b> <code>{daylight_saving}</code>\n"
+            f"<b>🌅Gün :</b> <code>{current_day}</code>\n"
+            f"<b>⌚Cari vaxt:</b> <code>{current_time}</code>\n"
+            f"<b>📆Hal-hazırki Tarix :</b> <code>{current_date}</code>"
         )
     except BaseException:
         result = None
@@ -66,10 +66,10 @@ async def _(event):
     try:
         query = message.strip().split(" ", 1)[1]
     except BaseException:
-        await event.reply("Provide a country name/abbreviation/timezone to find.")
+        await event.reply("Tapmaq üçün bir ölkə adı/qısaltması/saat qurşağı verin.")
         return
     send_message = await event.reply(
-        f"Finding timezone info for <b>{query}</b>", parse_mode="html"
+        f"saat qurşağı məlumatı axtarılır <b>{query}</b>", parse_mode="html"
     )
 
     query_timezone = query.lower()
@@ -80,7 +80,7 @@ async def _(event):
 
     if not result:
         await send_message.edit(
-            f"Timezone info not available for <b>{query}</b>", parse_mode="html"
+            f"Saat qurşağı haqqında məlumat mövcud deyil <b>{query}</b>", parse_mode="html"
         )
         return
 

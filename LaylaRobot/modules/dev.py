@@ -18,12 +18,12 @@ def leave(update: Update, context: CallbackContext):
         chat_id = str(args[0])
         try:
             bot.leave_chat(int(chat_id))
-            update.effective_message.reply_text("Beep boop, I left that soup!.")
+            update.effective_message.reply_text("Qrupu tərk etdim!")
         except TelegramError:
             update.effective_message.reply_text(
-                "Beep boop, I could not leave that group(dunno why tho).")
+                "Əməliyyat uğursuz oldu..")
     else:
-        update.effective_message.reply_text("Send a valid chat ID")
+        update.effective_message.reply_text("Keçərli qrup ID ver")
 
 
 @run_async
@@ -33,7 +33,7 @@ def gitpull(update: Update, context: CallbackContext):
         "Pulling all changes from remote and then attempting to restart.")
     subprocess.Popen('git pull', stdout=subprocess.PIPE, shell=True)
 
-    sent_msg_text = sent_msg.text + "\n\nChanges pulled...I guess.. Restarting in "
+    sent_msg_text = sent_msg.text + "\n\nDəyişiklər əldə edildi...Yenidən başladılır "
 
     for i in reversed(range(5)):
         sent_msg.edit_text(sent_msg_text + str(i + 1))

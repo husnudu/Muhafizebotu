@@ -29,7 +29,7 @@ async def is_register_admin(chat, user):
 async def apk(e):
     if e.is_group:
      if not (await is_register_admin(e.input_chat, e.message.sender_id)):
-          await e.reply("🙄 You are not admin here.. But you can use this command in my pm 😜🙈")
+          await e.reply("🙄Burda admin deyilsən .. Amma bu əmri pm-də istifadə edə bilərsən 😜🙈")
           return
     try:
         app_name = e.pattern_match.group(1)
@@ -47,12 +47,12 @@ async def apk(e):
         app_icon = results[0].findNext('div', 'Vpfmgd').findNext('div', 'uzcko').img['data-src']
         app_details = "<a href='"+app_icon+"'>📲&#8203;</a>"
         app_details += " <b>"+app_name+"</b>"
-        app_details += "\n\n<code>Developer :</code> <a href='"+app_dev_link+"'>"+app_dev+"</a>"
-        app_details += "\n<code>Rating :</code> "+app_rating.replace("Rated ", "⭐ ").replace(" out of ", "/").replace(" stars", "", 1).replace(" stars", "⭐ ").replace("five", "5")
-        app_details += "\n<code>Features :</code> <a href='"+app_link+"'>View in Play Store</a>"
-        app_details += "\n\n 🍀 @ELIZABETH_TGBOT 🍀"
+        app_details += "\n\n<code>Yaradıcı :</code> <a href='"+app_dev_link+"'>"+app_dev+"</a>"
+        app_details += "\n<code>Reytinq :</code> "+app_rating.replace("Qiymətləndirilib ", "⭐ ").replace(" out of ", "/").replace(" stars", "", 1).replace(" stars", "⭐ ").replace("five", "5")
+        app_details += "\n<code>Xüsusiyyətləri :</code> <a href='"+app_link+"'>Play Mağazada baxın</a>"
+        app_details += "\n\n 🍀 @AzRobotlar 🍀"
         await e.reply(app_details, link_preview = True, parse_mode = 'HTML')
     except IndexError:
-        await e.reply("No result found in search. Please enter **Valid app name**")
+        await e.reply("Axtarışda heç bir nəticə tapılmadı. Zəhmət olmasa **Etibarlı tətbiq adı daxil edin**")
     except Exception as err:
-        await e.reply("Exception Occured:- "+str(err))
+        await e.reply("İstisna baş verdi:- "+str(err))

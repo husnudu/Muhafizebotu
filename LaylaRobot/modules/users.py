@@ -1,15 +1,14 @@
 from io import BytesIO
 from time import sleep
 
-from telegram import TelegramError, Update
-from telegram.error import BadRequest, Unauthorized
-from telegram.ext import (CallbackContext, CommandHandler, Filters,
-                          MessageHandler, run_async)
-
 import LaylaRobot.modules.sql.users_sql as sql
 from LaylaRobot import DEV_USERS, LOGGER, OWNER_ID, dispatcher
 from LaylaRobot.modules.helper_funcs.chat_status import dev_plus, sudo_plus
 from LaylaRobot.modules.sql.users_sql import get_all_users
+from telegram import TelegramError, Update
+from telegram.error import BadRequest
+from telegram.ext import (CallbackContext, CommandHandler, Filters,
+                          MessageHandler, run_async)
 
 USERS_GROUP = 4
 CHAT_GROUP = 5
@@ -89,7 +88,7 @@ def broadcast(update: Update, context: CallbackContext):
                 except TelegramError:
                     failed_user += 1
         update.effective_message.reply_text(
-            f"Broadcast complete.\nGroups failed: {failed}.\nUsers failed: {failed_user}."
+            f"Yayım tamamlndı.\nUğursuz olan qruplar: {failed}.\nUğursuz olan istifadəçilər: {failed_user}."
         )
 
 
@@ -114,7 +113,7 @@ def log_user(update: Update, context: CallbackContext):
 @sudo_plus
 def chats(update: Update, context: CallbackContext):
     all_chats = sql.get_all_chats() or []
-    chatfile = 'List of chats.\n0. Chat name | Chat ID | Members count\n'
+    chatfile = 'Qrupların Siyahısı.\n0. Qrup adı | Chat ID | İstifadəçi sayı\n'
     P = 1
     for chat in all_chats:
         try:
@@ -132,31 +131,28 @@ def chats(update: Update, context: CallbackContext):
         update.effective_message.reply_document(
             document=output,
             filename="groups_list.txt",
-            caption="Here be the list of groups in my database.")
+            caption="Botun olduğu qrupların siyahısı.")
 
 
 @run_async
 def chat_checker(update: Update, context: CallbackContext):
     bot = context.bot
-    try:
-        if update.effective_message.chat.get_member(
-                bot.id).can_send_messages is False:
-            bot.leaveChat(update.effective_message.chat.id)
-    except Unauthorized:
-        pass
+    if update.effective_message.chat.get_member(
+            bot.id).can_send_messages is False:
+        bot.leaveChat(update.effective_message.chat.id)
 
 
 def __user_info__(user_id):
     if user_id in [777000, 1087968824]:
-        return """╘══「 Groups count: <code>???</code> 」"""
+        return """╘══「 Ortaq qruplarımız: <code>???</code> 」"""
     if user_id == dispatcher.bot.id:
-        return """╘══「 Groups count: <code>???</code> 」"""
+        return """╘══「 Ortaq qruplarımız: <code>???</code> 」"""
     num_chats = sql.get_user_num_chats(user_id)
-    return f"""╘══「 Groups count: <code>{num_chats}</code> 」"""
+    return f"""╘══「 Ortaq qruplarımız: <code>{num_chats}</code> 」"""
 
 
 def __stats__():
-    return f"• {sql.num_users()} users, across {sql.num_chats()} chats"
+    return f"• {sql.num_users()} ədəd istifadəçi, ümumi {sql.num_chats()} ədəd qrupda"
 
 
 def __migrate__(old_chat_id, new_chat_id):
@@ -176,6 +172,6 @@ dispatcher.add_handler(BROADCAST_HANDLER)
 dispatcher.add_handler(CHATLIST_HANDLER)
 dispatcher.add_handler(CHAT_CHECKER_HANDLER, CHAT_GROUP)
 
-__mod_name__ = "Users"
+__mod_name__ = "İstifadəçi"
 __handlers__ = [(USER_HANDLER, USERS_GROUP), BROADCAST_HANDLER,
                 CHATLIST_HANDLER]

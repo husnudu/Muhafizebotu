@@ -1,5 +1,4 @@
 import os
-import re
 import math
 import requests
 import urllib.request as urllib
@@ -23,17 +22,17 @@ def stickerid(update: Update, context: CallbackContext):
     msg = update.effective_message
     if msg.reply_to_message and msg.reply_to_message.sticker:
         update.effective_message.reply_text(
-            "Hello " +
+            "Salam " +
             f"{mention_html(msg.from_user.id, msg.from_user.first_name)}" +
-            ", The sticker id you are replying is :\n <code>" +
+            ", Yanıt verdiyin stikerin ID :\n <code>" +
             escape(msg.reply_to_message.sticker.file_id) + "</code>",
             parse_mode=ParseMode.HTML,
         )
     else:
         update.effective_message.reply_text(
-            "Hello " +
+            "Salam " +
             f"{mention_html(msg.from_user.id, msg.from_user.first_name)}" +
-            ", Please reply to sticker message to get id sticker",
+            ", Zəhmət olmasa bir stikerə yanıt ver",
             parse_mode=ParseMode.HTML,
         )
 
@@ -43,16 +42,16 @@ def cb_sticker(update: Update, context: CallbackContext):
     msg = update.effective_message
     split = msg.text.split(' ', 1)
     if len(split) == 1:
-        msg.reply_text('Provide some name to search for pack.')
+        msg.reply_text('Axtarışa veriləcək bir ad deməlisən.')
         return
     text = requests.get(combot_stickers_url + split[1]).text
     soup = bs(text, 'lxml')
     results = soup.find_all("a", {'class': "sticker-pack__btn"})
     titles = soup.find_all("div", "sticker-pack__title")
     if not results:
-        msg.reply_text('No results found :(.')
+        msg.reply_text('Heç bir nəticə tapılmadı :(.')
         return
-    reply = f"Stickers for *{split[1]}*:"
+    reply = f"*{split[1]}* stiker axtarışının nəticələri:"
     for result, title in zip(results, titles):
         link = result['href']
         reply += f"\n• [{title.get_text()}]({link})"
@@ -71,7 +70,7 @@ def getsticker(update: Update, context: CallbackContext):
         os.remove("sticker.png")
     else:
         update.effective_message.reply_text(
-            "Please reply to a sticker for me to upload its PNG.")
+            "Bir stikerə yanıt ver.")
 
 
 @run_async
@@ -110,7 +109,7 @@ def kang(update: Update, context: CallbackContext):
         elif msg.reply_to_message.document:
             file_id = msg.reply_to_message.document.file_id
         else:
-            msg.reply_text("Yea, I can't kang that.")
+            msg.reply_text("Yox, bunu paketə əlavə edə bilmirəm.")
 
         kang_file = context.bot.get_file(file_id)
         if not is_animated:
@@ -123,7 +122,7 @@ def kang(update: Update, context: CallbackContext):
         elif msg.reply_to_message.sticker and msg.reply_to_message.sticker.emoji:
             sticker_emoji = msg.reply_to_message.sticker.emoji
         else:
-            sticker_emoji = "🤔"
+            sticker_emoji = "😳"
 
         if not is_animated:
             try:
@@ -155,13 +154,13 @@ def kang(update: Update, context: CallbackContext):
                     emojis=sticker_emoji,
                 )
                 msg.reply_text(
-                    f"Sticker successfully added to [pack](t.me/addstickers/{packname})"
-                    + f"\nEmoji is: {sticker_emoji}",
+                    f"Stiker paketə əlavə olundu. Paket [burada](t.me/addstickers/{packname}) tapıla bilər"
+                    + f"\nEmoji: {sticker_emoji}",
                     parse_mode=ParseMode.MARKDOWN,
                 )
 
             except OSError as e:
-                msg.reply_text("I can only kang images m8.")
+                msg.reply_text("Mən yalnız stiker və şəkilləri paketə əlavə edə bilərəm.")
                 print(e)
                 return
 
@@ -186,20 +185,20 @@ def kang(update: Update, context: CallbackContext):
                         emojis=sticker_emoji,
                     )
                     msg.reply_text(
-                        f"Sticker successfully added to [pack](t.me/addstickers/{packname})"
-                        + f"\nEmoji is: {sticker_emoji}",
+                        f"Stiker paketə əlavə olundu. Paket [burada](t.me/addstickers/{packname}) tapıla bilər"
+                        + f"\nEmoji: {sticker_emoji}",
                         parse_mode=ParseMode.MARKDOWN,
                     )
                 elif e.message == "Invalid sticker emojis":
                     msg.reply_text("Invalid emoji(s).")
                 elif e.message == "Stickers_too_much":
                     msg.reply_text(
-                        "Max packsize reached. Press F to pay respecc.")
+                        "Stiker limitinə çatıldı😔.")
                 elif e.message == "Internal Server Error: sticker set not found (500)":
                     msg.reply_text(
-                        "Sticker successfully added to [pack](t.me/addstickers/%s)"
+                        "Stiker paketə əlavə olundu. Paket [burada](t.me/addstickers/%s) tapıla bilər"
                         % packname + "\n"
-                        "Emoji is:" + " " + sticker_emoji,
+                        "Emoji:" + " " + sticker_emoji,
                         parse_mode=ParseMode.MARKDOWN,
                     )
                 print(e)
@@ -229,8 +228,8 @@ def kang(update: Update, context: CallbackContext):
                     emojis=sticker_emoji,
                 )
                 msg.reply_text(
-                    f"Sticker successfully added to [pack](t.me/addstickers/{packname})"
-                    + f"\nEmoji is: {sticker_emoji}",
+                    f"Stiker paketə əlavə olundu. Paket [burada](t.me/addstickers/{packname}) tapıla bilər"
+                    + f"\nEmoji: {sticker_emoji}",
                     parse_mode=ParseMode.MARKDOWN,
                 )
             except TelegramError as e:
@@ -246,12 +245,12 @@ def kang(update: Update, context: CallbackContext):
                         tgs_sticker=open("kangsticker.tgs", "rb"),
                     )
                 elif e.message == "Invalid sticker emojis":
-                    msg.reply_text("Invalid emoji(s).")
+                    msg.reply_text("Xətalı emoji.")
                 elif e.message == "Internal Server Error: sticker set not found (500)":
                     msg.reply_text(
-                        "Sticker successfully added to [pack](t.me/addstickers/%s)"
+                        "Stiker paketə əlavə olundu. Paket [burada](t.me/addstickers/%s) tapıla bilər"
                         % packname + "\n"
-                        "Emoji is:" + " " + sticker_emoji,
+                        "Emoji:" + " " + sticker_emoji,
                         parse_mode=ParseMode.MARKDOWN,
                     )
                 print(e)
@@ -263,7 +262,7 @@ def kang(update: Update, context: CallbackContext):
                 png_sticker = urlemoji[1]
                 sticker_emoji = urlemoji[2]
             except IndexError:
-                sticker_emoji = "🤔"
+                sticker_emoji = "😳"
             urllib.urlretrieve(png_sticker, kangsticker)
             im = Image.open(kangsticker)
             maxsize = (512, 512)
@@ -293,12 +292,12 @@ def kang(update: Update, context: CallbackContext):
                 emojis=sticker_emoji,
             )
             msg.reply_text(
-                f"Sticker successfully added to [pack](t.me/addstickers/{packname})"
-                + f"\nEmoji is: {sticker_emoji}",
+                f"Stiker paketə əlavə olundu. Paket [burada](t.me/addstickers/{packname}) tapıla bilər"
+                + f"\nEmoji: {sticker_emoji}",
                 parse_mode=ParseMode.MARKDOWN,
             )
         except OSError as e:
-            msg.reply_text("I can only kang images m8.")
+            msg.reply_text("Mən yalnız şəkil və stikerləri paketə əlavə edə bilərəm.")
             print(e)
             return
         except TelegramError as e:
@@ -322,33 +321,33 @@ def kang(update: Update, context: CallbackContext):
                     emojis=sticker_emoji,
                 )
                 msg.reply_text(
-                    "Sticker successfully added to [pack](t.me/addstickers/%s)"
-                    % packname + "\n" + "Emoji is:" + " " + sticker_emoji,
+                    "Stiker paketə əlavə olundu. Paket [burada](t.me/addstickers/%s) tapıla bilər"
+                    % packname + "\n" + "Emoji:" + " " + sticker_emoji,
                     parse_mode=ParseMode.MARKDOWN,
                 )
             elif e.message == "Invalid sticker emojis":
-                msg.reply_text("Invalid emoji(s).")
+                msg.reply_text("Xətalı emoji.")
             elif e.message == "Stickers_too_much":
-                msg.reply_text("Max packsize reached. Press F to pay respecc.")
+                msg.reply_text("Stiker limitinə çatıldı.")
             elif e.message == "Internal Server Error: sticker set not found (500)":
                 msg.reply_text(
-                    "Sticker successfully added to [pack](t.me/addstickers/%s)"
+                    "Stiker paketə əlavə olundu. Paket [burada](t.me/addstickers/%s) tapıla bilər"
                     % packname + "\n"
-                    "Emoji is:" + " " + sticker_emoji,
+                    "Emoji:" + " " + sticker_emoji,
                     parse_mode=ParseMode.MARKDOWN,
                 )
             print(e)
     else:
-        packs = "Please reply to a sticker, or image to kang it!\nOh, by the way. here are your packs:\n"
+        packs = "Zəhmət olmasa bir şəkil və ya stikerə yanıt ver!\nOh yeri gəlmişkən aşağıdakılar sənin paketlərindir:\n"
         if packnum > 0:
             firstpackname = "a" + str(user.id) + "_by_" + context.bot.username
             for i in range(0, packnum + 1):
                 if i == 0:
-                    packs += f"[pack](t.me/addstickers/{firstpackname})\n"
+                    packs += f"[paket](t.me/addstickers/{firstpackname})\n"
                 else:
-                    packs += f"[pack{i}](t.me/addstickers/{packname})\n"
+                    packs += f"[paket{i}](t.me/addstickers/{packname})\n"
         else:
-            packs += f"[pack](t.me/addstickers/{packname})"
+            packs += f"[paket](t.me/addstickers/{packname})"
         msg.reply_text(packs, parse_mode=ParseMode.MARKDOWN)
     if os.path.isfile("kangsticker.png"):
         os.remove("kangsticker.png")
@@ -377,7 +376,7 @@ def makepack_internal(
             success = context.bot.create_new_sticker_set(
                 user.id,
                 packname,
-                f"{name}s kang pack" + extra_version,
+                f"{name}'s pack" + extra_version,
                 png_sticker=png_sticker,
                 emojis=emoji,
             )
@@ -385,7 +384,7 @@ def makepack_internal(
             success = context.bot.create_new_sticker_set(
                 user.id,
                 packname,
-                f"{name}s animated kang pack" + extra_version,
+                f"{name}'s animated pack" + extra_version,
                 tgs_sticker=tgs_sticker,
                 emojis=emoji,
             )
@@ -394,12 +393,12 @@ def makepack_internal(
         print(e)
         if e.message == "Sticker set name is already occupied":
             msg.reply_text(
-                "Your pack can be found [here](t.me/addstickers/%s)" % packname,
+                "Paket [burada](t.me/addstickers/%s) tapıla bilər" % packname,
                 parse_mode=ParseMode.MARKDOWN,
             )
         elif e.message in ("Peer_id_invalid", "bot was blocked by the user"):
             msg.reply_text(
-                "Contact me in PM first.",
+                "İlk öncə mənimlə PM-də əlaqəyə keç.",
                 reply_markup=InlineKeyboardMarkup([[
                     InlineKeyboardButton(
                         text="Start", url=f"t.me/{context.bot.username}")
@@ -407,7 +406,7 @@ def makepack_internal(
             )
         elif e.message == "Internal Server Error: created sticker set not found (500)":
             msg.reply_text(
-                "Sticker pack successfully created. Get it [here](t.me/addstickers/%s)"
+                "Stiker paketi uğurla yaradıldı. Paket [burada](t.me/addstickers/%s) tapıla bilər"
                 % packname,
                 parse_mode=ParseMode.MARKDOWN,
             )
@@ -415,37 +414,26 @@ def makepack_internal(
 
     if success:
         msg.reply_text(
-            "Sticker pack successfully created. Get it [here](t.me/addstickers/%s)"
+            "Stiker paketi uğurla yaradıldı. Paket [burada](t.me/addstickers/%s) tapıla bilər"
             % packname,
             parse_mode=ParseMode.MARKDOWN,
         )
     else:
         msg.reply_text(
-            "Failed to create sticker pack. Possibly due to blek mejik.")
+            "Stiker paketi yaradıla bilmədi.")
 
 
 __help__ = """
-➩ `/stickerid`*:* reply to a sticker to me to tell you its file ID.
-➩ `/getsticker`*:* reply to a sticker to me to upload its raw PNG file.
-➩ `/kang`*:* reply to a sticker to add it to your pack.
-➩ `/stickers`*:* Find stickers for given term on combot sticker catalogue
-
-Blacklist sticker is used to stop certain stickers. Whenever a sticker is sent, the message will be deleted immediately.
-*NOTE:* Blacklist stickers do not affect the group admin.
- ➩ `/blsticker`*:* See current blacklisted sticker.
-*Only admin:*
- ➩ `/addblsticker <sticker link>`*:* Add the sticker trigger to the black list. Can be added via reply sticker.
- ➩ `/unblsticker <sticker link>`*:* Remove triggers from blacklist. The same newline logic applies here, so you can delete multiple triggers at once.
- ➩ `/rmblsticker <sticker link>`*:* Same as above.
- ➩ `/blstickermode <ban/tban/mute/tmute>`*:* sets up a default action on what to do if users use blacklisted stickers. (`tmute seems broken right now`)
-Note:
- ➩ `<sticker link>` can be `https://t.me/addstickers/<sticker>` or just `<sticker>` or reply to the sticker message.
+• `/stickerid`*:* yanıt verilən stikerin ID göstərir.
+• `/getsticker`*:* yanıt verilən stikeri png formatında atır.
+• `/stik`*:* yanıt verilən şəkil və ya stikeri paketə əlavə edir.
+• `/stickers <paket_adı>`*:* stiker paketi axtarışı edir
 """
 
-__mod_name__ = "Stickers"
+__mod_name__ = "🎟Stiker"
 STICKERID_HANDLER = DisableAbleCommandHandler("stickerid", stickerid)
 GETSTICKER_HANDLER = DisableAbleCommandHandler("getsticker", getsticker)
-KANG_HANDLER = DisableAbleCommandHandler("kang", kang, admin_ok=True)
+KANG_HANDLER = DisableAbleCommandHandler("stik", kang, admin_ok=True)
 STICKERS_HANDLER = DisableAbleCommandHandler("stickers", cb_sticker)
 
 dispatcher.add_handler(STICKERS_HANDLER)

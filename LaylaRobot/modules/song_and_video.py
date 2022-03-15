@@ -38,18 +38,18 @@ except:
 	from youtubesearchpython import SearchVideos 
 	pass
 
-@layla(pattern="^/song (.*)")
+@layla(pattern="^/mahni (.*)")
 async def download_video(v_url):
 
     lazy = v_url ; sender = await lazy.get_sender() ; me = await lazy.client.get_me()
 
     if not sender.id == me.id:
-        rkp = await lazy.reply("`processing...`")
+        rkp = await lazy.reply("`Emal olunur...`")
     else:
-    	rkp = await lazy.edit("`processing...`")   
+    	rkp = await lazy.edit("`Emal olunur...")   
     url = v_url.pattern_match.group(1)
     if not url:
-         return await rkp.edit("`Error \nusage song <song name>`")
+         return await rkp.edit("`Xəta \nusage mahnı <musiqi adı>`")
     search = SearchVideos(url, offset = 1, mode = "json", max_results = 1)
     test = search.result()
     p = json.loads(test)
@@ -89,44 +89,44 @@ async def download_video(v_url):
             False
         }
         video = False
-        song = True    
+        mahni = True    
     try:
-        await rkp.edit("`Fetching data, please wait..`")
+        await rkp.edit("`Məlumat alınır, xahiş edirəm gözləyin💃🏻...`")
         with YoutubeDL(opts) as rip:
             rip_data = rip.extract_info(url)
     except DownloadError as DE:
         await rkp.edit(f"`{str(DE)}`")
         return
     except ContentTooShortError:
-        await rkp.edit("`The download content was too short.`")
+        await rkp.edit("`Endirmə məzmunu çox qısa idi.`")
         return
     except GeoRestrictedError:
         await rkp.edit(
-            "`Video is not available from your geographic location due to geographic restrictions imposed by a website.`"
+            "`Bir veb sayt tərəfindən qoyulmuş coğrafi məhdudiyyətlər səbəbindən video coğrafi məkandan əldə edilə bilməz.`"
         )
         return
     except MaxDownloadsReached:
-        await rkp.edit("`Max-downloads limit has been reached.`")
+        await rkp.edit("`Maksimum yükləmə limitinə çatıldı.`")
         return
     except PostProcessingError:
-        await rkp.edit("`There was an error during post processing.`")
+        await rkp.edit("`Sonrakı işləmə zamanı bir xəta baş verdi.`")
         return
     except UnavailableVideoError:
-        await rkp.edit("`Media is not available in the requested format.`")
+        await rkp.edit("`Media tələb olunan formatda mövcud deyil.`")
         return
     except XAttrMetadataError as XAME:
         await rkp.edit(f"`{XAME.code}: {XAME.msg}\n{XAME.reason}`")
         return
     except ExtractorError:
-        await rkp.edit("`There was an error during info extraction.`")
+        await rkp.edit("`Məlumat çıxarılması zamanı xəta baş verdi.`")
         return
     except Exception as e:
         await rkp.edit(f"{str(type(e)): {str(e)}}")
         return
     c_time = time.time()
-    if song:
-        await rkp.edit(f"Sending the song...`\
-        \n**{rip_data['title']}**\
+    if mahni:
+        await rkp.edit(f"Mahnını göndərirəm...🎶`\
+        \n{rip_data['title']}\
         \nby *{rip_data['uploader']}*")
         await v_url.client.send_file(
             v_url.chat_id,
@@ -139,12 +139,12 @@ async def download_video(v_url):
             ],
             progress_callback=lambda d, t: asyncio.get_event_loop(
             ).create_task(
-                progress(d, t, v_url, c_time, "Uploading..",
+                progress(d, t, v_url, c_time, "Hazırlanır...🖋",
                          f"{rip_data['title']}.mp3")))
         os.remove(f"{rip_data['id']}.mp3")
     elif video:
-        await rkp.edit(f"`Sending the song... `\
-        \n**{rip_data['title']}**\
+        await rkp.edit(f"`Mahnını göndərirəm...🎶`\
+        \n*{rip_data['title']}*\
         \nby *{rip_data['uploader']}*")
         await v_url.client.send_file(
             v_url.chat_id,
@@ -153,7 +153,7 @@ async def download_video(v_url):
             caption=url,
             progress_callback=lambda d, t: asyncio.get_event_loop(
             ).create_task(
-                progress(d, t, v_url, c_time, "Uploading..",
+                progress(d, t, v_url, c_time, "Hazırlanır...🖋",
                          f"{rip_data['title']}.mp4")))
         os.remove(f"{rip_data['id']}.mp4")
 
@@ -162,12 +162,12 @@ async def download_video(v_url):
 async def download_video(v_url):  
     lazy = v_url ; sender = await lazy.get_sender() ; me = await lazy.client.get_me()
     if not sender.id == me.id:
-        rkp = await lazy.reply("`processing...`")
+        rkp = await lazy.reply("`Emal olunur...`")
     else:
-    	rkp = await lazy.edit("`processing...`")   
+    	rkp = await lazy.edit("`Emal olunur...`")   
     url = v_url.pattern_match.group(1)
     if not url:
-         return await rkp.edit("`Error \nusage song <song name>`")
+         return await rkp.edit("`Xəta \nusage mahnısı <mahnı adı>`")
     search = SearchVideos(url, offset = 1, mode = "json", max_results = 1)
     test = search.result()
     p = json.loads(test)
@@ -175,9 +175,9 @@ async def download_video(v_url):
     try:
        url = q[0]['link']
     except:
-    	return await rkp.edit("`failed to find`")
+    	return await rkp.edit("`tapa bilmədi`")
     type = "audio"
-    await rkp.edit("`Preparing to download...`")
+    await rkp.edit("`Yükləməyə hazırlaşır...`")
     if type == "audio":
         opts = {
             'format':
@@ -203,45 +203,45 @@ async def download_video(v_url):
             'quiet':
             True
         }
-        song = False
+        mahni = False
         video = True
     try:
-        await rkp.edit("`Fetching data, please wait..`")
+        await rkp.edit("`Məlumat alınır, xahiş edirəm gözləyin💃🏻...`")
         with YoutubeDL(opts) as rip:
             rip_data = rip.extract_info(url)
     except DownloadError as DE:
         await rkp.edit(f"`{str(DE)}`")
         return
     except ContentTooShortError:
-        await rkp.edit("`The download content was too short.`")
+        await rkp.edit("`Endirmə məzmunu çox qısa idi.`")
         return
     except GeoRestrictedError:
         await rkp.edit(
-            "`Video is not available from your geographic location due to geographic restrictions imposed by a website.`"
+            "`Bir veb sayt tərəfindən qoyulmuş coğrafi məhdudiyyətlər səbəbindən video coğrafi məkandan əldə edilə bilməz.`"
         )
         return
     except MaxDownloadsReached:
-        await rkp.edit("`Max-downloads limit has been reached.`")
+        await rkp.edit("`Maksimum yükləmə limitinə çatıldı.`")
         return
     except PostProcessingError:
-        await rkp.edit("`There was an error during post processing.`")
+        await rkp.edit("`Sonrakı işləmə zamanı bir xəta baş verdi.`")
         return
     except UnavailableVideoError:
-        await rkp.edit("`Media is not available in the requested format.`")
+        await rkp.edit("`Media tələb olunan formatda mövcud deyil.`")
         return
     except XAttrMetadataError as XAME:
         await rkp.edit(f"`{XAME.code}: {XAME.msg}\n{XAME.reason}`")
         return
     except ExtractorError:
-        await rkp.edit("`There was an error during info extraction.`")
+        await rkp.edit("`Məlumat çıxarılması zamanı xəta baş verdi.`")
         return
     except Exception as e:
         await rkp.edit(f"{str(type(e)): {str(e)}}")
         return
     c_time = time.time()
-    if song:
-        await rkp.edit(f"`Sending the video song...`\
-        \n**{rip_data['title']}**\
+    if mahni:
+        await rkp.edit(f"`Video göndərilir...`\
+        \n*{rip_data['title']}*\
         \nby *{rip_data['uploader']}*")
         await v_url.client.send_file(
             v_url.chat_id,
@@ -254,13 +254,13 @@ async def download_video(v_url):
             ],
             progress_callback=lambda d, t: asyncio.get_event_loop(
             ).create_task(
-                progress(d, t, v_url, c_time, "Uploading..",
+                progress(d, t, v_url, c_time, "Hazırlanır...🖋",
                          f"{rip_data['title']}.mp3")))
         os.remove(f"{rip_data['id']}.mp3")
         await v_url.delete()
     elif video:
-        await rkp.edit(f"`Preparing to upload video song :`\
-        \n**{rip_data['title']}**\
+        await rkp.edit(f"`Video yükləməyə hazırlanır :`\
+        \n*{rip_data['title']}*\
         \nby *{rip_data['uploader']}*")
         await v_url.client.send_file(
             v_url.chat_id,
@@ -269,7 +269,7 @@ async def download_video(v_url):
             caption=rip_data['title'],
             progress_callback=lambda d, t: asyncio.get_event_loop(
             ).create_task(
-                progress(d, t, v_url, c_time, "Uploading..",
+                progress(d, t, v_url, c_time, "Hazırlanır...🖋",
                          f"{rip_data['title']}.mp4")))
         os.remove(f"{rip_data['id']}.mp4")
         await rkp.delete()

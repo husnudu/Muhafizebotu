@@ -155,7 +155,7 @@ def bluetext(update: Update, context: CallbackContext):
     msg = update.effective_message
     reply_text = msg.reply_to_message.reply_text if msg.reply_to_message else msg.reply_text
     reply_text(
-        "/BLUE /TEXT\n/MUST /CLICK\n/I /AM /A /STUPID /ANIMAL /THAT /IS /ATTRACTED /TO /COLORS"
+        "/BLUE"
     )
 
 
@@ -185,19 +185,9 @@ def table(update: Update, context: CallbackContext):
 
 
 __help__ = """
- • `/runs`*:* reply a random string from an array of replies
- • `/slap`*:* slap a user, or get slapped if not a reply
- • `/shrug`*:* get shrug XD
- • `/table`*:* get flip/unflip :v
- • `/decide`*:* Randomly answers yes/no/maybe
- • `/toss`*:* Tosses A coin
- • `/bluetext`*:* check urself :V
- • `/roll`*:* Roll a dice
- • `/rlg`*:* Join ears,nose,mouth and create an emo ;-;
- • `/shout <keyword>`*:* write anything you want to give loud shout
- • `/weebify <text>`*:* returns a weebified text
- • `/sanitize`*:* always use this before /pat or any contact
- • `/pat`*:* pats a user, or get patted
+ • `/motivasiya`*:* fərqli motivasiya sözləri atır
+ • `/pat`*:* istifadəçiyə Sticker və ya Gif atır
+ • `/weebify <yazı>`*:* fərqli şriftdə yazır
 """
 
 SANITIZE_HANDLER = DisableAbleCommandHandler("sanitize", sanitize)
@@ -224,7 +214,7 @@ dispatcher.add_handler(RLG_HANDLER)
 dispatcher.add_handler(DECIDE_HANDLER)
 dispatcher.add_handler(TABLE_HANDLER)
 
-__mod_name__ = "Fun"
+__mod_name__ = "🤹🏻Əyləncə"
 __command_list__ = [
     "runs", "slap", "roll", "toss", "shrug", "bluetext", "rlg", "decide",
     "table", "pat", "sanitize"

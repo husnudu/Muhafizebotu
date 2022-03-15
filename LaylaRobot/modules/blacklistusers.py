@@ -26,36 +26,36 @@ def bl_user(update: Update, context: CallbackContext) -> str:
     user_id, reason = extract_user_and_text(message, args)
 
     if not user_id:
-        message.reply_text("I doubt that's a user.")
+        message.reply_text("Belə istifadəçi olduğuna şübhə edirəm.")
         return ""
 
     if user_id == bot.id:
         message.reply_text(
-            "How am I supposed to do my work if I am ignoring myself?")
+            "Özümə məhəl qoymuramsa, işimi necə görməliyəm??")
         return ""
 
     if user_id in BLACKLISTWHITELIST:
-        message.reply_text("No!\nNoticing Disasters is my job.")
+        message.reply_text("Yox!\nSəhvlərə diqqət yetirmək mənim işimdir.")
         return ""
 
     try:
         target_user = bot.get_chat(user_id)
     except BadRequest as excp:
-        if excp.message == "User not found":
-            message.reply_text("I can't seem to find this user.")
+        if excp.message == "İstifadəçi tapılmadı":
+            message.reply_text("Görünür bu istifadəçini tapa bilmirəm.")
             return ""
         else:
             raise
 
     sql.blacklist_user(user_id, reason)
-    message.reply_text("I shall ignore the existence of this user!")
+    message.reply_text("Bu istifadəçinin varlığına məhəl qoymayacağam!")
     log_message = (
-        f"#BLACKLIST\n"
+        f"#QARASİYAHI\n"
         f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
-        f"<b>User:</b> {mention_html(target_user.id, html.escape(target_user.first_name))}"
+        f"<b>İstifadəçi:</b> {mention_html(target_user.id, html.escape(target_user.first_name))}"
     )
     if reason:
-        log_message += f"\n<b>Reason:</b> {reason}"
+        log_message += f"\n<b>Səbəb:</b> {reason}"
 
     return log_message
 
@@ -70,18 +70,18 @@ def unbl_user(update: Update, context: CallbackContext) -> str:
     user_id = extract_user(message, args)
 
     if not user_id:
-        message.reply_text("I doubt that's a user.")
+        message.reply_text("Belə istifadəçi olduğuna şübhə edirəm.")
         return ""
 
     if user_id == bot.id:
-        message.reply_text("I always notice myself.")
+        message.reply_text("Mən həmişə işimə diqqət yetirirəmf.")
         return ""
 
     try:
         target_user = bot.get_chat(user_id)
     except BadRequest as excp:
-        if excp.message == "User not found":
-            message.reply_text("I can't seem to find this user.")
+        if excp.message == "İstifadəçi tapılmadı":
+            message.reply_text("Görünür bu istifadəçini tapa bilmirəm.")
             return ""
         else:
             raise
@@ -91,15 +91,15 @@ def unbl_user(update: Update, context: CallbackContext) -> str:
         sql.unblacklist_user(user_id)
         message.reply_text("*notices user*")
         log_message = (
-            f"#UNBLACKLIST\n"
+            f"#QARASİYAHIOLMAYAN\n"
             f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
-            f"<b>User:</b> {mention_html(target_user.id, html.escape(target_user.first_name))}"
+            f"<b>İstifadəçi:</b> {mention_html(target_user.id, html.escape(target_user.first_name))}"
         )
 
         return log_message
 
     else:
-        message.reply_text("I am not ignoring them at all though!")
+        message.reply_text("Hərçənd onları heç görməzdən gəlmirəm!")
         return ""
 
 
@@ -120,9 +120,9 @@ def bl_users(update: Update, context: CallbackContext):
             users.append(
                 f"• {mention_html(user.id, html.escape(user.first_name))}")
 
-    message = "<b>Blacklisted Users</b>\n"
+    message = "<b>Qara siyahıdakı istifadəçilər</b>\n"
     if not users:
-        message += "Noone is being ignored as of yet."
+        message += "Hələ ki, heç kim nəzərə alınmır."
     else:
         message += '\n'.join(users)
 
@@ -132,7 +132,7 @@ def bl_users(update: Update, context: CallbackContext):
 def __user_info__(user_id):
     is_blacklisted = sql.is_user_blacklisted(user_id)
 
-    text = "Blacklisted: <b>{}</b>"
+    text = "Qara siyahıya: <b>{}</b>"
     if user_id in [777000, 1087968824]:
         return ""
     if user_id == dispatcher.bot.id:
@@ -140,12 +140,12 @@ def __user_info__(user_id):
     if int(user_id) in DRAGONS + TIGERS + WOLVES:
         return ""
     if is_blacklisted:
-        text = text.format("Yes")
+        text = text.format("Bəli")
         reason = sql.get_reason(user_id)
         if reason:
-            text += f"\nReason: <code>{reason}</code>"
+            text += f"\nSəbəb: <code>{reason}</code>"
     else:
-        text = text.format("No")
+        text = text.format("Xeir")
 
     return text
 
@@ -158,5 +158,5 @@ dispatcher.add_handler(BL_HANDLER)
 dispatcher.add_handler(UNBL_HANDLER)
 dispatcher.add_handler(BLUSERS_HANDLER)
 
-__mod_name__ = "Blacklisting Users"
+__mod_name__ = "💢Qara Siyahı Userlər"
 __handlers__ = [BL_HANDLER, UNBL_HANDLER, BLUSERS_HANDLER]

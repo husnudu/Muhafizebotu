@@ -19,13 +19,13 @@ import requests
 
 
 
-@layla(pattern="^/yt(audio|video) (.*)")
+@layla(pattern="^/yt(mahni|video) (.*)")
 async def download_video(v_url):
     """ For .ytdl command, download media from YouTube and many other sites. """
     url = v_url.pattern_match.group(2)
     type = v_url.pattern_match.group(1).lower()
-    lmao = await v_url.reply("`Preparing to download...`")
-    if type == "audio":
+    lmao = await v_url.reply("`Yükləməyə hazırlaşır ...`")
+    if type == "mahni":
         opts = {
             'format':
             'bestaudio',
@@ -54,7 +54,7 @@ async def download_video(v_url):
             False
         }
         video = False
-        song = True
+        mahni = True
     elif type == "video":
         opts = {
             'format':
@@ -80,44 +80,44 @@ async def download_video(v_url):
             'quiet':
             True
         }
-        song = False
+        mahni = False
         video = True
     try:
-        await lmao.edit("`Fetching data, please wait..`")
+        await lmao.edit("`Məlumat alınır, xahiş edirəm gözləyin ..💃🏻`")
         with YoutubeDL(opts) as ytdl:
             ytdl_data = ytdl.extract_info(url)
     except DownloadError as DE:
         await lmao.edit(f"`{str(DE)}`")
         return
     except ContentTooShortError:
-        await lmao.edit("`The download content was too short.`")
+        await lmao.edit("`Endirmə məzmunu çox qısa idi.`")
         return
     except GeoRestrictedError:
         await lmao.edit(
-            "`Video is not available from your geographic location due to geographic restrictions imposed by a website.`"
+            "`Veb sayt tərəfindən qoyulmuş coğrafi məhdudiyyətlər səbəbindən video coğrafi məkandan əldə edilə bilməz.`"
         )
         return
     except MaxDownloadsReached:
-        await lmao.edit("`Max-downloads limit has been reached.`")
+        await lmao.edit("`Maksimum yükləmə limitinə çatıldı.`")
         return
     except PostProcessingError:
-        await lmao.edit("`There was an error during post processing.`")
+        await lmao.edit("`Sonrakı işləmə zamanı bir xəta baş verdi.`")
         return
     except UnavailableVideoError:
-        await lmao.edit("`Media is not available in the requested format.`")
+        await lmao.edit("`Media tələb olunan formatda mövcud deyil.`")
         return
     except XAttrMetadataError as XAME:
         await lmao.edit(f"`{XAME.code}: {XAME.msg}\n{XAME.reason}`")
         return
     except ExtractorError:
-        await lmao.edit("`There was an error during info extraction.`")
+        await lmao.edit("`Məlumat çıxarılması zamanı xəta baş verdi.`")
         return
     except Exception as e:
         await lmao.edit(f"{str(type(e)): {str(e)}}")
         return
     c_time = time.time()
-    if song:
-        await lmao.edit(f"`Preparing to upload song:`\
+    if mahni:
+        await lmao.edit(f"`Mahnı yükləməyə hazırlaşır:`\
         \n**{ytdl_data['title']}**\
         \nby *{ytdl_data['uploader']}*")
         await v_url.client.send_file(
@@ -131,7 +131,7 @@ async def download_video(v_url):
             ])
         os.remove(f"{ytdl_data['id']}.mp3")
     elif video:
-        await lmao.edit(f"`Preparing to upload video:`\
+        await lmao.edit(f"`Video yükləməyə hazırlaşır:`\
         \n**{ytdl_data['title']}**\
         \nby *{ytdl_data['uploader']}*")
         await v_url.client.send_file(
@@ -142,12 +142,12 @@ async def download_video(v_url):
         os.remove(f"{ytdl_data['id']}.mp4")
       
 __help__ = """
- • `/song`** <songname artist(optional)>: uploads the song in it's best quality available. 
+ • `/mahni`** <mahnı adı>: umahnını ən yaxşı keyfiyyətdə yükləyir. 
  
- • `/video`** <songname artist(optional)>: uploads the video song in it's best quality available.
+ • `/video`** <video adı>: video mahnını ən yaxşı keyfiyyətdə yükləyir.
  
- • `/lyrics`** <songname artist(optional)>: sends the complete lyrics of the song provided as input
+ • `/lyrics`** <mahnı adı,sənətkarı(istəyə bağlıdır)>: giriş olaraq verilən mahnının tam sözlərini göndərir
  
- • `/ytaudio`** <link> or `/ytvideo`** <link>: Downlods a video or audio from a youtube video to the bots local serve.. 
+ • `/ytmahni`** <link> yaxud `/ytvideo`** <link>: Bir youtube mahnı,videosu link vasitesi ilə ən yaxşı keyfiyyətdə yükəyir
 """
-__mod_name__ = "Songs"
+__mod_name__ = "🎵Musiqi"

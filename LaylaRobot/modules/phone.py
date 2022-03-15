@@ -25,11 +25,11 @@ async def is_register_admin(chat, user):
     else:
         return None
 
-@layla(pattern=r'^/phone (.*)')
-async def phone(event): 
+@layla(pattern=r'^/nomre (.*)')
+async def nomre(event): 
     if event.is_group:
      if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-          await event.reply("☎️ You are not admin 🚶‍♀️")
+          await event.reply("☎️Admin deyilsen🚶‍♀️")
           return
     information = event.pattern_match.group(1)
     number = information
@@ -44,12 +44,12 @@ async def phone(event):
     carrier = obj['carrier']
     line_type = obj['line_type']	
     validornot = obj['valid']	
-    aa = "Valid: "+str(validornot)
-    a = "Phone number: "+str(number)
-    b = "Country: " +str(country_code)
-    c = "Country Name: " +str(country_name)
-    d = "Location: " +str(location)
-    e = "Carrier: " +str(carrier)
-    f = "Device: " +str(line_type)
+    aa = "Etibarlıdır: "+str(validornot)
+    a = "Telefon nömrəsi: "+str(number)
+    b = "Ölkə: " +str(country_code)
+    c = "Ölkə Adı: " +str(country_name)
+    d = "Yer: " +str(location)
+    e = "Daşıyıcı: " +str(carrier)
+    f = "Qurğu: " +str(line_type)
     g = f"{aa}\n{a}\n{b}\n{c}\n{d}\n{e}\n{f}"
     await event.reply(g)

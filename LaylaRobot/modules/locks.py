@@ -197,7 +197,7 @@ def unrestr_members(bot,
 @run_async
 def locktypes(update, context):
     update.effective_message.reply_text(
-        "\n • ".join(["Locks available: "] +
+        "\n • ".join(["Kilidlər mövcuddure: "] +
                      sorted(list(LOCK_TYPES) + list(LOCK_CHAT_RESTRICTION))))
 
 
@@ -222,19 +222,19 @@ def lock(update, context) -> str:
                     chat = dispatcher.bot.getChat(conn)
                     chat_id = conn
                     chat_name = chat.title
-                    text = "Locked {} for non-admins in {}!".format(
+                    text = "İdarəedilməyənlər üçün {} kilidlənib {}!".format(
                         ltype, chat_name)
                 else:
                     if update.effective_message.chat.type == "private":
                         send_message(
                             update.effective_message,
-                            "This command is meant to use in group not in PM",
+                            "Bu əmr PM-də deyil qrupda istifadə etmək üçündür",
                         )
                         return ""
                     chat = update.effective_chat
                     chat_id = update.effective_chat.id
                     chat_name = update.effective_message.chat.title
-                    text = "Locked {} for non-admins!".format(ltype)
+                    text = "İdarəedilməyənlər üçün {} kilidləndi!".format(ltype)
                 sql.update_lock(chat.id, ltype, locked=True)
                 send_message(
                     update.effective_message, text, parse_mode="markdown")
@@ -242,7 +242,7 @@ def lock(update, context) -> str:
                 return ("<b>{}:</b>"
                         "\n#LOCK"
                         "\n<b>Admin:</b> {}"
-                        "\nLocked <code>{}</code>.".format(
+                        "\nAçıldı <code>{}</code>.".format(
                             html.escape(chat.title),
                             mention_html(user.id, user.first_name),
                             ltype,
@@ -256,19 +256,19 @@ def lock(update, context) -> str:
                     chat = dispatcher.bot.getChat(conn)
                     chat_id = conn
                     chat_name = chat.title
-                    text = "Locked {} for all non-admins in {}!".format(
+                    text = "Bütün idarəedilməyənlər üçün kilidləndi!".format(
                         ltype, chat_name)
                 else:
                     if update.effective_message.chat.type == "private":
                         send_message(
                             update.effective_message,
-                            "This command is meant to use in group not in PM",
+                            "Bu əmr PM-də deyil qrupda istifadə etmək üçündür",
                         )
                         return ""
                     chat = update.effective_chat
                     chat_id = update.effective_chat.id
                     chat_name = update.effective_message.chat.title
-                    text = "Locked {} for all non-admins!".format(ltype)
+                    text = "Bütün idarəedilməyənlər üçün kilidləndi!".format(ltype)
 
                 current_permission = context.bot.getChat(chat_id).permissions
                 context.bot.set_chat_permissions(
@@ -284,7 +284,7 @@ def lock(update, context) -> str:
                 return ("<b>{}:</b>"
                         "\n#Permission_LOCK"
                         "\n<b>Admin:</b> {}"
-                        "\nLocked <code>{}</code>.".format(
+                        "\nKilit <code>{}</code>.".format(
                             html.escape(chat.title),
                             mention_html(user.id, user.first_name),
                             ltype,
@@ -293,16 +293,16 @@ def lock(update, context) -> str:
             else:
                 send_message(
                     update.effective_message,
-                    "What are you trying to lock...? Try /locktypes for the list of lockables",
+                    "Nəyi kilidləməyə çalışırsan ...? Kilidlənə bilən siyahı üçün /locktypes sınayıns",
                 )
         else:
             send_message(update.effective_message,
-                         "What are you trying to lock...?")
+                         "Nəyi kilidləməyə çalışırsan ...?")
 
     else:
         send_message(
             update.effective_message,
-            "I am not administrator or haven't got enough rights.",
+            "İdarəçi deyiləm və ya yetərincə hüququm yoxdur.",
         )
 
     return ""
@@ -328,26 +328,26 @@ def unlock(update, context) -> str:
                     chat = dispatcher.bot.getChat(conn)
                     chat_id = conn
                     chat_name = chat.title
-                    text = "Unlocked {} for everyone in {}!".format(
+                    text = "{} Hər kəs üçün {} açılmışdır!".format(
                         ltype, chat_name)
                 else:
                     if update.effective_message.chat.type == "private":
                         send_message(
                             update.effective_message,
-                            "This command is meant to use in group not in PM",
+                            "Bu əmr PM-də deyil qrupda istifadə etmək üçündür",
                         )
                         return ""
                     chat = update.effective_chat
                     chat_id = update.effective_chat.id
                     chat_name = update.effective_message.chat.title
-                    text = "Unlocked {} for everyone!".format(ltype)
+                    text = "Hər kəs üçün {} kiliddən çıxarıldı!".format(ltype)
                 sql.update_lock(chat.id, ltype, locked=False)
                 send_message(
                     update.effective_message, text, parse_mode="markdown")
                 return ("<b>{}:</b>"
                         "\n#UNLOCK"
                         "\n<b>Admin:</b> {}"
-                        "\nUnlocked <code>{}</code>.".format(
+                        "\nAçıldı <code>{}</code>.".format(
                             html.escape(chat.title),
                             mention_html(user.id, user.first_name),
                             ltype,
@@ -361,19 +361,19 @@ def unlock(update, context) -> str:
                     chat = dispatcher.bot.getChat(conn)
                     chat_id = conn
                     chat_name = chat.title
-                    text = "Unlocked {} for everyone in {}!".format(
+                    text = "Hər kəs üçün {} kiliddən çıxarıldı!!".format(
                         ltype, chat_name)
                 else:
                     if update.effective_message.chat.type == "private":
                         send_message(
                             update.effective_message,
-                            "This command is meant to use in group not in PM",
+                            "Bu əmr PM-də deyil qrupda istifadə etmək üçündür",
                         )
                         return ""
                     chat = update.effective_chat
                     chat_id = update.effective_chat.id
                     chat_name = update.effective_message.chat.title
-                    text = "Unlocked {} for everyone!".format(ltype)
+                    text = "Hər kəs üçün {} kiliddən çıxarıldı!".format(ltype)
 
                 current_permission = context.bot.getChat(chat_id).permissions
                 context.bot.set_chat_permissions(
@@ -390,7 +390,7 @@ def unlock(update, context) -> str:
                 return ("<b>{}:</b>"
                         "\n#UNLOCK"
                         "\n<b>Admin:</b> {}"
-                        "\nUnlocked <code>{}</code>.".format(
+                        "\nAçıldı <code>{}</code>.".format(
                             html.escape(chat.title),
                             mention_html(user.id, user.first_name),
                             ltype,
@@ -398,12 +398,12 @@ def unlock(update, context) -> str:
             else:
                 send_message(
                     update.effective_message,
-                    "What are you trying to unlock...? Try /locktypes for the list of lockables.",
+                    "Nə kilidini açmağa çalışırsan ...? Kilidlənə bilənlər siyahısı üçün /locktypes sınayın.",
                 )
 
         else:
             send_message(update.effective_message,
-                         "What are you trying to unlock...?")
+                         "Nə kilidini açmağa çalışırsan ...?")
 
     return ""
 
@@ -424,10 +424,10 @@ def del_lockables(update, context):
                         try:
                             message.delete()
                         except BadRequest as excp:
-                            if excp.message == "Message to delete not found":
+                            if excp.message == "Silmək üçün mesaj tapılmadı":
                                 pass
                             else:
-                                LOGGER.exception("ERROR in lockables")
+                                LOGGER.exception("Kilit Xeta")
                         break
                 if message.text:
                     check = ad.detect_alphabet(u"{}".format(message.text))
@@ -435,10 +435,10 @@ def del_lockables(update, context):
                         try:
                             message.delete()
                         except BadRequest as excp:
-                            if excp.message == "Message to delete not found":
+                            if excp.message == "Silmək üçün mesaj tapılmadı":
                                 pass
                             else:
-                                LOGGER.exception("ERROR in lockables")
+                                LOGGER.exception("Kilidlənənlərdə XATA")
                         break
             continue
         if lockable == "button":
@@ -448,10 +448,10 @@ def del_lockables(update, context):
                     try:
                         message.delete()
                     except BadRequest as excp:
-                        if excp.message == "Message to delete not found":
+                        if excp.message == "Silmək üçün mesaj tapılmadı!":
                             pass
                         else:
-                            LOGGER.exception("ERROR in lockables")
+                            LOGGER.exception("Kilidlənənlərdə XATA")
                     break
             continue
         if lockable == "inline":
@@ -461,10 +461,10 @@ def del_lockables(update, context):
                     try:
                         message.delete()
                     except BadRequest as excp:
-                        if excp.message == "Message to delete not found":
+                        if excp.message == "Silmək üçün mesaj tapılmadı!":
                             pass
                         else:
-                            LOGGER.exception("ERROR in lockables")
+                            LOGGER.exception("Kilidlənənlərdə XATA")
                     break
             continue
         if (filter(update) and sql.is_locked(chat.id, lockable) and
@@ -476,25 +476,25 @@ def del_lockables(update, context):
                         if not is_bot_admin(chat, context.bot.id):
                             send_message(
                                 update.effective_message,
-                                "I see a bot and I've been told to stop them from joining..."
-                                "but I'm not admin!",
+                                "Bir bot görürəm və mənə buyurdular ki, qoşulmalarını dayandırsınlar ..."
+                                "amma mən admin deyiləm!",
                             )
                             return
 
                         chat.kick_member(new_mem.id)
                         send_message(
                             update.effective_message,
-                            "Only admins are allowed to add bots in this chat! Get outta here.",
+                            "Bu söhbətə yalnız adminlərə bot əlavə etməyə icazə verilir! Get buradan.",
                         )
                         break
             else:
                 try:
                     message.delete()
                 except BadRequest as excp:
-                    if excp.message == "Message to delete not found":
+                    if excp.message == "Mesaj Tapılmadl!":
                         pass
                     else:
-                        LOGGER.exception("ERROR in lockables")
+                        LOGGER.exception("Kilidlənənlərdə XATA")
 
                 break
 
@@ -505,7 +505,7 @@ def build_lock_message(chat_id):
     locklist = []
     permslist = []
     if locks:
-        res += "*" + "These are the current locks in this Chat:" + "*"
+        res += "*" + "Bu Söhbətin mövcud kilidləri bunlardır:" + "*"
         if locks:
             locklist.append("sticker = `{}`".format(locks.sticker))
             locklist.append("audio = `{}`".format(locks.audio))
@@ -541,7 +541,7 @@ def build_lock_message(chat_id):
         # Building lock list string
         for x in locklist:
             res += "\n • {}".format(x)
-    res += "\n\n*" + "These are the current chat permissions:" + "*"
+    res += "\n\n*" + "Cari söhbət icazələri bunlardır:" + "*"
     for x in permslist:
         res += "\n • {}".format(x)
     return res
@@ -563,7 +563,7 @@ def list_locks(update, context):
         if update.effective_message.chat.type == "private":
             send_message(
                 update.effective_message,
-                "This command is meant to use in group not in PM",
+                "Bu əmr PM-də deyil qrupda istifadə etmək üçündür",
             )
             return ""
         chat = update.effective_chat
@@ -571,7 +571,7 @@ def list_locks(update, context):
 
     res = build_lock_message(chat.id)
     if conn:
-        res = res.replace("Locks in", "*{}*".format(chat_name))
+        res = res.replace("Kilidlər", "*{}*".format(chat_name))
 
     send_message(update.effective_message, res, parse_mode=ParseMode.MARKDOWN)
 
@@ -614,30 +614,30 @@ def __chat_settings__(chat_id, user_id):
 
 
 __help__ = """
-Do stickers annoy you? or want to avoid people sharing links? or pictures? \
-You're in the right place!
-The locks module allows you to lock away some common items in the \
-telegram world; the bot will automatically delete them!
+Etiketler sizi bezdirir? və ya bağlantıları paylaşan insanların qarşısını almaq istəyirsiniz? yoxsa şəkillər? \
+Doğru yerdəsiniz!
+Kilidlər modulu, \
+telegram dünyası; bot onları avtomatik olaraq siləcək!
 
- • `/locktypes`*:* Lists all possible locktypes
+ • `/locktypes`*:* Mümkün olan bütün lok kipləri sadalayır
  
 *Admins only:*
- • `/lock <type>`*:* Lock items of a certain type (not available in private)
- • `/unlock <type>`*:* Unlock items of a certain type (not available in private)
- • `/locks`*:* The current list of locks in this chat.
+ • `/lock <type>`*:* Müəyyən bir tip elementləri kilidləyin (xüsusi olaraq mövcud deyil)
+ • `/unlock <type>`*:* Müəyyən tipli əşyaların kilidini açın (xüsusi olaraq mövcud deyil)
+ • `/locks`*:* Bu söhbətdəki mövcud kilidlər siyahısı.
  
-Locks can be used to restrict a group's users.
-eg:
-Locking urls will auto-delete all messages with urls, locking stickers will restrict all \
-non-admin users from sending stickers, etc.
-Locking bots will stop non-admins from adding bots to the chat.
+Kilidlər bir qrupun istifadəçilərini məhdudlaşdırmaq üçün istifadə edilə bilər.
+:
+URL-lərin kilidlənməsi url-lərlə bütün mesajları avtomatik siləcək, etiketlərin kilidlənməsi hamısını məhdudlaşdıracaq \
+administrator olmayan istifadəçilərin stiker göndərməsindən və s.
+Botların kilidlənməsi administrator olmayanların söhbətə bot əlavə etməsini dayandıracaq.
 
-*Note:*
- • Unlocking permission *info* will allow members (non-admins) to change the group information, such as the description or the group name
- • Unlocking permission *pin* will allow members (non-admins) to pinned a message in a group
+*QEYD:*
+ • İcazənin kilidini açmaq *məlumat* üzvlərə (admin olmayanlara) təsvir və ya qrup adı kimi qrup məlumatlarını dəyişdirməyə imkan verəcəkdir
+ • İcazənin kilidini açmaq *pin* üzvlərə (admin olmayanlara) bir qrupda bir mesajı bağlamağa imkan verəcəkdir
 """
 
-__mod_name__ = "Locks"
+__mod_name__ = "🔒Kilidlər"
 
 LOCKTYPES_HANDLER = DisableAbleCommandHandler("locktypes", locktypes)
 LOCK_HANDLER = CommandHandler(
