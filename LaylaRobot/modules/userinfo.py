@@ -271,7 +271,7 @@ def info(update: Update, context: CallbackContext):
     disaster_level_present = False
 
     if user.id == OWNER_ID:
-        text += "\n\nBotdakı rütbəsi *🤵🏼Qurucu(Sahib)*."
+        text += "\n\nBu Mənim ❤️*Ürəyim Dir Ona İlişəni Ciyərin Dağıdaram🥰 (Sahib)*."
         disaster_level_present = True
     elif user.id in DEV_USERS:
         text += "\n\nBotdakı rütbəsi '🧞‍♂️Qəhrəmanlar assosasiyası'."
@@ -290,7 +290,7 @@ def info(update: Update, context: CallbackContext):
         disaster_level_present = True
 
     if disaster_level_present:
-        text += ' [<a href="https://t.me/AzRobotGroup/495">HP Sistemi Nədir?(KlikEt)</a>]'.format(
+        text += ' [<a href="https://t.me/AlmondEyessChat">HP Sistemi Nədir?(KlikEt)</a>]'.format(
             bot.username)
 
     try:
