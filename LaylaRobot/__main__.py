@@ -53,7 +53,7 @@ def get_readable_time(seconds: int) -> str:
 
 PM_START_TEXT = """
 🙋🏻Salam *{}*, necəsən?🌺
-Mənim adım *Mühafizə Robot* Mən qrup idarəsi üçün çox asan botam🤖
+Mənim adım *{}* Mən qrup idarəsi üçün çox asan botam🤖
 Hətta Azərbaycan dilində🇦🇿\nMəncə biraz bota göz gəzdir👀🧏
 💁🏻Bütün əmrlər üçün /help yazmaq kifayətdir.
 💰/donate: Sahibə necə bağış etmək barədə məlumat al!
