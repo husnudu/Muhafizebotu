@@ -53,10 +53,8 @@ def get_readable_time(seconds: int) -> str:
 
 PM_START_TEXT = """
 🙋🏻Salam *{}*, necəsən?🌺
-Mənim adım *{}* Mən qrup idarəsi üçün çox asan botam🤖
-Hətta Azərbaycan dilində🇦🇿\nMəncə biraz bota göz gəzdir👀🧏
+Mənim adım *{}* 👮🏻‍♀️Mən Telegram qruplarını qorumaq üçün Azərbaycanca Olan Qrup İdarə Botuyam!.
 💁🏻Bütün əmrlər üçün /help yazmaq kifayətdir.
-💰/donate: Sahibə necə bağış etmək barədə məlumat al!
 """
 
 HELP_STRINGS = """
