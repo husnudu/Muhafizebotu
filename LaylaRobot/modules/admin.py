@@ -438,18 +438,18 @@ def adminlist(update, context):
 
 
 __help__ = """
-•`/admins`*:* söhbətdəki adminlərin siyahısı
+• `/admins`*:* söhbətdəki adminlərin siyahısı
 
  *Yalnız adminlər:*
-•`/tagall`*:* Qrup üzvlərini qeyd edin
-•`/pin`*:* səssizcə cavablandırılan mesajı sabitləyir - istifadəçilərə bildirişlər vermək üçün `'yüksək'' və ya ''bildiriş'' əlavə edin.
-•`/unpin`*:* hazırda bərkidilmiş mesajı çıxarır
-•`/invitelink`*:* dəvət linki əldə edir
+• `/tagall`*:* Qrup üzvlərini qeyd edin
+• `/pin`*:* səssizcə cavablandırılan mesajı sabitləyir - istifadəçilərə bildirişlər vermək üçün `'yüksək'' və ya ''bildiriş'' əlavə edin.
+• `/unpin`*:* hazırda bərkidilmiş mesajı çıxarır
+• `/invitelink`*:* dəvət linki əldə edir
 • `/promote`*:* cavab verən istifadəçini təşviq edir
-•`/demote`*:* cavab verən istifadəçini aşağı salır
-•`/title <burada başlıq>`*:* botun təşviq etdiyi admin üçün fərdi başlıq təyin edir
-•/zombies: qrupunuzda silinmiş hesabların sayını hesablayır
-•/zombies clean: Silinmiş hesabları qrupdan silin.
+• `/demote`*:* cavab verən istifadəçini aşağı salır
+• `/title <burada başlıq>`*:* botun təşviq etdiyi admin üçün fərdi başlıq təyin edir
+• /zombies: qrupunuzda silinmiş hesabların sayını hesablayır
+• /zombies clean: Silinmiş hesabları qrupdan silin.
 """
 
 ADMINLIST_HANDLER = DisableAbleCommandHandler("admins", adminlist)
