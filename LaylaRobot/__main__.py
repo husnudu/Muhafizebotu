@@ -59,19 +59,19 @@ Salam🥳 {}, mənim adım {}!
  """
 
 HELP_STRINGS = """
-Hey there! My name is *{}*.
+Salam!  Mənim adım *{}*.
 
-*Main* commands available:
- • /help: PM's you this message.
- • /help <module name>: PM's you info about that module.
- • /donate: information on how to donate!
- • /settings:
-   • in PM: will send you your settings for all supported modules.
-   • in a group: will redirect you to pm, with all that chat's settings.
+ *Əsas* əmrlər mövcuddur:
+  • /help: Bu mesajı PM göndərirsiniz.
+  • /help <modul adı>: PM bu modul haqqında məlumatdır.
+  • /donate: ianə vermək haqqında məlumat!
+  • /settings:
+  • PM-də: bütün dəstəklənən modullar üçün parametrlərinizi sizə göndərəcək.
+  • qrupda: bütün söhbət parametrləri ilə sizi pm-ə yönləndirəcək.
 
 
-{}
-And the following:
+ {}
+ Və aşağıdakılar:
 """.format(
     dispatcher.bot.first_name, ""
     if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\n")
