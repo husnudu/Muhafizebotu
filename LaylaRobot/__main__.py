@@ -203,11 +203,11 @@ def start(update: Update, context: CallbackContext):
                     ],
                      [
                          InlineKeyboardButton(
-                             text="Support Group",
-                             url=f"https://t.me/maharashtrafriendcircle"),
+                             text="Söhbət Qrupu",
+                             url=f"https://t.me/AlmondEyessChat"),
                          InlineKeyboardButton(
-                             text="📘 Logs",
-                             url="https://t.me/chocolatyqueenvcplayer")
+                             text="📘 Kanal",
+                             url="https://t.me/EtirafAzeChannel")
                      ],
                      [
                          InlineKeyboardButton(
