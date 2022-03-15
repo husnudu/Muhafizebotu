@@ -183,13 +183,13 @@ soxri = [
 
 
 @run_async
-def motivasiya(update: Update, context: CallbackContext):
+def soxri(update: Update, context: CallbackContext):
     message = update.effective_message
     soxri = random.choice(reactions)
     if message.reply_to_message:
-        message.reply_to_message.reply_text(motivasiya)
+        message.reply_to_message.reply_text(soxri)
     else:
-        message.reply_text(motivasiya)
+        message.reply_text(soxri)
 
 
 REACT_HANDLER = DisableAbleCommandHandler("soxri", soxri)
