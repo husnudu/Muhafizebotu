@@ -76,7 +76,7 @@ def send_to_list(bot: Bot,
                  markdown=False,
                  html=False) -> None:
     if html and markdown:
-        raise Exception("Can only send with either markdown or HTML!")
+        raise Exception("Yalnız markdown və ya HTML ilə göndərə bilərsiniz")
     for user_id in set(send_to):
         try:
             if markdown:
