@@ -79,14 +79,14 @@ def promote(update: Update, context: CallbackContext) -> str:
     except BadRequest as err:
         if err.message == "User_not_mutual_contact":
             message.reply_text(
-                "Qrupda olmayan birini irəli sürə bilmərəm.")
+                "I can't promote someone who isn't in the group.")
         else:
-            message.reply_text("Tanıtım zamanı xəta baş verdi.")
+            message.reply_text("An error occured while promoting.")
         return
 
     bot.sendMessage(
         chat.id,
-        f"Uğurla irəli çəkildi <b>{user_member.user.first_name or user_id}</b>!",
+        f"Sucessfully promoted <b>{user_member.user.first_name or user_id}</b>!",
         parse_mode=ParseMode.HTML)
 
     log_message = (
