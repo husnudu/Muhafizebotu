@@ -74,12 +74,12 @@ Salam!  Mənim adım *{}*.
  Və aşağıdakılar:
 """.format(
     dispatcher.bot.first_name, ""
-    if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\n")
+    if not ALLOW_EXCL else "\nBütün əmrlər / və ya ! ilə istifadə edilə bilər.\n")
 
 SAITAMA_IMG = "https://telegra.ph//file/393802b7af92db6a941e2.jpg"
 
-DONATE_STRING = """Heya, glad to hear you want to donate!
-Supporting him; [𝗖𝗵𝗼𝗰𝗼𝗹𝗮𝘁𝘆𝗤𝘂𝗲𝗲𝗻](t.me/sangramghangale)"""
+DONATE_STRING = """Hey, ianə vermək istədiyinizi eşitdiyimə şadam!
+ Onu dəstəkləmək; [𝗖𝗵𝗼𝗰𝗼𝗹𝗮𝘁𝘆𝗤𝘂𝗲𝗲𝗻](t.me/sangramghangale)"""
 
 IMPORTED = {}
 MIGRATEABLE = []
@@ -101,7 +101,7 @@ for module_name in ALL_MODULES:
         IMPORTED[imported_module.__mod_name__.lower()] = imported_module
     else:
         raise Exception(
-            "Can't have two modules with the same name! Please change one")
+            "Eyni ada malik iki modul ola bilməz! Zəhmət olmasa birini dəyişdirin")
 
     if hasattr(imported_module, "__help__") and imported_module.__help__:
         HELPABLE[imported_module.__mod_name__.lower()] = imported_module
@@ -165,7 +165,7 @@ def start(update: Update, context: CallbackContext):
                     update.effective_chat.id, HELPABLE[mod].__help__,
                     InlineKeyboardMarkup([[
                         InlineKeyboardButton(
-                            text="Back", callback_data="help_back")
+                            text="geri", callback_data="help_back")
                     ]]))
             elif args[0].lower() == "markdownhelp":
                 IMPORTED["extras"].markdown_help_sender(update)
