@@ -35,14 +35,14 @@ def promote(update: Update, context: CallbackContext) -> str:
 
     if not (promoter.can_promote_members or
             promoter.status == "creator") and not user.id in DRAGONS:
-        message.reply_text("You don't have the necessary rights to do that!")
+        message.reply_text("Bunu etmək üçün lazımi hüquqlarınız yoxdur!")
         return
 
     user_id = extract_user(message, args)
 
     if not user_id:
         message.reply_text(
-            "You don't seem to be referring to a user or the ID specified is incorrect.."
+            "Siz istifadəçiyə istinad etmirsiniz və ya göstərilən ID səhvdir.."
         )
         return
 
