@@ -200,11 +200,11 @@ def start(update: Update, context: CallbackContext):
                     ],
                      [
                          InlineKeyboardButton(
-                             text="📣 Rəsmi Kanalımız",
-                             url=f"https://t.me/AzRobotlar"),
+                             text="📣Kanal",
+                             url=f"https://t.me/EtirafAzeChannel"),
                          InlineKeyboardButton(
-                             text="💬 Dəstək,Söhbət Qrupu",
-                             url="https://t.me/AzRobotGroup")
+                             text="💬 Söhbət Qrupu",
+                             url="https://t.me/AlmondEyessChat")
                      ],
                      [
                          InlineKeyboardButton(
