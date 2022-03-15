@@ -35,14 +35,14 @@ def promote(update: Update, context: CallbackContext) -> str:
 
     if not (promoter.can_promote_members or
             promoter.status == "creator") and not user.id in DRAGONS:
-        message.reply_text("You don't have the necessary rights to do that!")
+        message.reply_text("Bunu etmək üçün lazımi hüququnuz yoxdur!")
         return
 
     user_id = extract_user(message, args)
 
     if not user_id:
         message.reply_text(
-            "You don't seem to be referring to a user or the ID specified is incorrect.."
+            "Siz istifadəçiyə istinad etmirsiniz və ya göstərilən ID səhvdir.."
         )
         return
 
@@ -53,12 +53,12 @@ def promote(update: Update, context: CallbackContext) -> str:
 
     if user_member.status == 'administrator' or user_member.status == 'creator':
         message.reply_text(
-            "How am I meant to promote someone that's already an admin?")
+            "Artıq admin olan birini necə tanıtmaq istəyirəm?")
         return
 
     if user_id == bot.id:
         message.reply_text(
-            "I can't promote myself! Get an admin to do it for me.")
+            "Mən özümü reklam edə bilmərəm! Mənim yerimə bunu etmək üçün admin tapın."
         return
 
     # set same perms as bot - bot can't assign higher perms than itself!
@@ -79,14 +79,14 @@ def promote(update: Update, context: CallbackContext) -> str:
     except BadRequest as err:
         if err.message == "User_not_mutual_contact":
             message.reply_text(
-                "I can't promote someone who isn't in the group.")
+                "Qrupda olmayan birini irəli sürə bilmərəm.")
         else:
-            message.reply_text("An error occured while promoting.")
+            message.reply_text("Tanıtım zamanı xəta baş verdi.")
         return
 
     bot.sendMessage(
         chat.id,
-        f"Sucessfully promoted <b>{user_member.user.first_name or user_id}</b>!",
+        f"Uğurla irəli çəkildi <b>{user_member.user.first_name or user_id}</b>!",
         parse_mode=ParseMode.HTML)
 
     log_message = (
