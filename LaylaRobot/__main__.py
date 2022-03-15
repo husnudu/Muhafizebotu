@@ -354,13 +354,13 @@ def send_settings(chat_id, user_id, user=False):
                                    for mod in USER_SETTINGS.values())
             dispatcher.bot.send_message(
                 user_id,
-                "Bunlar cari parametrlərinizdir:" + "\n\n" + settings,
+                "These are your current settings:" + "\n\n" + settings,
                 parse_mode=ParseMode.MARKDOWN)
 
         else:
             dispatcher.bot.send_message(
                 user_id,
-                "Deyəsən, istifadəçi üçün xüsusi parametrlər mövcud deyil :'(",
+                "Seems like there aren't any user specific settings available :'(",
                 parse_mode=ParseMode.MARKDOWN)
 
     else:
@@ -368,15 +368,15 @@ def send_settings(chat_id, user_id, user=False):
             chat_name = dispatcher.bot.getChat(chat_id).title
             dispatcher.bot.send_message(
                 user_id,
-                text="Hansı modul üçün {} parametrlərini yoxlamaq istərdiniz?"
+                text="Which module would you like to check {}'s settings for?"
                 .format(chat_name),
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(0, CHAT_SETTINGS, "stngs", chat=chat_id)))
         else:
             dispatcher.bot.send_message(
                 user_id,
-                "Deyəsən heç bir söhbət parametri mövcud deyil :'(\nBunu göndər "
-                 "qrup söhbətində onun cari parametrlərini tapmaq üçün adminsiniz!",
+                "Seems like there aren't any chat settings available :'(\nSend this "
+                "in a group chat you're admin in to find its current settings!",
                 parse_mode=ParseMode.MARKDOWN)
 
 
@@ -394,7 +394,7 @@ def settings_button(update: Update, context: CallbackContext):
             chat_id = mod_match.group(1)
             module = mod_match.group(2)
             chat = bot.get_chat(chat_id)
-            text = "*{}* *{}* modulu üçün aşağıdakı parametrlərə malikdir:\n\n".format(escape_markdown(chat.title),
+            text = "*{}* has the following settings for the *{}* module:\n\n".format(escape_markdown(chat.title),
                                                                                      CHAT_SETTINGS[module].__mod_name__) + \
                    CHAT_SETTINGS[module].__chat_settings__(chat_id, user.id)
             query.message.reply_text(
@@ -402,7 +402,7 @@ def settings_button(update: Update, context: CallbackContext):
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup([[
                     InlineKeyboardButton(
-                        text="⬅️ Geri",
+                        text="Back",
                         callback_data="stngs_back({})".format(chat_id))
                 ]]))
 
@@ -411,8 +411,8 @@ def settings_button(update: Update, context: CallbackContext):
             curr_page = int(prev_match.group(2))
             chat = bot.get_chat(chat_id)
             query.message.reply_text(
-                "Salam! {} üçün kifayət qədər parametrlər var - davam edin və nəyi seçin"
-                 "sizi maraqlandırır.".format(chat.title),
+                "Hi there! There are quite a few settings for {} - go ahead and pick what "
+                "you're interested in.".format(chat.title),
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(
                         curr_page - 1, CHAT_SETTINGS, "stngs", chat=chat_id)))
@@ -422,8 +422,8 @@ def settings_button(update: Update, context: CallbackContext):
             next_page = int(next_match.group(2))
             chat = bot.get_chat(chat_id)
             query.message.reply_text(
-                "Salam! {} üçün kifayət qədər parametrlər var - davam edin və nəyi seçin"
-                 "maraqlanırsınız."format(chat.title),
+                "Hi there! There are quite a few settings for {} - go ahead and pick what "
+                "you're interested in.".format(chat.title),
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(
                         next_page + 1, CHAT_SETTINGS, "stngs", chat=chat_id)))
