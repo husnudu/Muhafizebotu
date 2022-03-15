@@ -432,8 +432,8 @@ def settings_button(update: Update, context: CallbackContext):
             chat_id = back_match.group(1)
             chat = bot.get_chat(chat_id)
             query.message.reply_text(
-                text="Salam! {} üçün kifayət qədər parametrlər var - davam edin və nəyi seçin"
-                 "sizi maraqlandırır.".format(escape_markdown(chat.title)),
+                text="Hi there! There are quite a few settings for {} - go ahead and pick what "
+                "you're interested in.".format(escape_markdown(chat.title)),
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(0, CHAT_SETTINGS, "stngs", chat=chat_id)))
