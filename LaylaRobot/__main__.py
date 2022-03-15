@@ -194,7 +194,7 @@ def start(update: Update, context: CallbackContext):
                 reply_markup=InlineKeyboardMarkup(
                     [[
                         InlineKeyboardButton(
-                            text="Məni Qrupa Əlavə Et✅",
+                            text="✅Məni Qrupa Əlavə Et✅",
                             url="t.me/{}?startgroup=true".format(
                                 context.bot.username))
                     ],
@@ -208,8 +208,8 @@ def start(update: Update, context: CallbackContext):
                      ],
                      [
                          InlineKeyboardButton(
-                             text="🧑🏼‍💻 Bot Qurucu,Sahibi",
-                             url="https://t.me/sirincayboss")
+                             text="🧑🏼‍💻 Sahibim",
+                             url="https://t.me/HuseynH")
                      ]]))
     else:
         update.effective_message.reply_text(
