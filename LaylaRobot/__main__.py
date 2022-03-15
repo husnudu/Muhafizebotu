@@ -271,7 +271,7 @@ def help_button(update, context):
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup([[
                     InlineKeyboardButton(
-                        text="Back", callback_data="help_back")
+                        text="⬅️ Geri", callback_data="help_back")
                 ]]))
 
         elif prev_match:
