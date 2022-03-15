@@ -438,18 +438,18 @@ def adminlist(update, context):
 
 
 __help__ = """
-• `/admins`*:* söhbətdəki adminlərin siyahısı
+ • `/admins`*:* list of admins in the chat
 
- *Yalnız adminlər:*
-• `/tagall`*:* Qrup üzvlərini qeyd edin
-• `/pin`*:* səssizcə cavablandırılan mesajı sabitləyir - istifadəçilərə bildirişlər vermək üçün `'yüksək'' və ya ''bildiriş'' əlavə edin.
-• `/unpin`*:* hazırda bərkidilmiş mesajı çıxarır
-• `/invitelink`*:* dəvət linki əldə edir
-• `/promote`*:* cavab verən istifadəçini təşviq edir
-• `/demote`*:* cavab verən istifadəçini aşağı salır
-• `/title <burada başlıq>`*:* botun təşviq etdiyi admin üçün fərdi başlıq təyin edir
-• /zombies: qrupunuzda silinmiş hesabların sayını hesablayır
-• /zombies clean: Silinmiş hesabları qrupdan silin.
+*Admins only:*
+ • `/tagall`*:* Mention the group members
+ • `/pin`*:* silently pins the message replied to - add `'loud'` or `'notify'` to give notifs to users.
+ • `/unpin`*:* unpins the currently pinned message
+ • `/invitelink`*:* gets invitelink
+ • `/promote`*:* promotes the user replied to
+ • `/demote`*:* demotes the user replied to
+ • `/title <title here>`*:* sets a custom title for an admin that the bot promoted
+ • /zombies: counts the number of deleted account in your group
+ • /zombies clean: Remove deleted accounts from group..
 """
 
 ADMINLIST_HANDLER = DisableAbleCommandHandler("admins", adminlist)
