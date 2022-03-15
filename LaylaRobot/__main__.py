@@ -432,8 +432,8 @@ def settings_button(update: Update, context: CallbackContext):
             chat_id = back_match.group(1)
             chat = bot.get_chat(chat_id)
             query.message.reply_text(
-                text="Hi there! There are quite a few settings for {} - go ahead and pick what "
-                "you're interested in.".format(escape_markdown(chat.title)),
+                text="Salam! {} üçün kifayət qədər parametrlər var - davam edin və nəyi seçin"
+                 "sizi maraqlandırır.".format(escape_markdown(chat.title)),
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(0, CHAT_SETTINGS, "stngs", chat=chat_id)))
@@ -462,7 +462,7 @@ def get_settings(update: Update, context: CallbackContext):
     # ONLY send settings in PM
     if chat.type != chat.PRIVATE:
         if is_user_admin(chat, user.id):
-            text = "Click here to get this chat's settings, as well as yours."
+            text = "Bu söhbətin, eləcə də sizin parametrlərinizi əldə etmək üçün bura klikləyin."
             msg.reply_text(
                 text,
                 reply_markup=InlineKeyboardMarkup([[
@@ -472,7 +472,7 @@ def get_settings(update: Update, context: CallbackContext):
                             context.bot.username, chat.id))
                 ]]))
         else:
-            text = "Click here to check your settings."
+            text = "Parametrlərinizi yoxlamaq üçün bura klikləyin."
 
     else:
         send_settings(chat.id, user.id, True)
@@ -489,10 +489,10 @@ def donate(update: Update, context: CallbackContext):
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True)
 
-        if OWNER_ID != 254318997 and DONATION_LINK:
+        if OWNER_ID != 5074483091 and DONATION_LINK:
             update.effective_message.reply_text(
-                "You can also donate to the person currently running me "
-                "[here]({})".format(DONATION_LINK),
+                "Hazırda məni idarə edən şəxsə də ianə verə bilərsiniz"
+                 "[burada]({})".format(DONATION_LINK),
                 parse_mode=ParseMode.MARKDOWN)
 
     else:
@@ -504,10 +504,10 @@ def donate(update: Update, context: CallbackContext):
                 disable_web_page_preview=True)
 
             update.effective_message.reply_text(
-                "I've PM'ed you about donating to my creator!")
+                "Yaradıcıma ianə verməklə bağlı sizə PM göndərdim!")
         except Unauthorized:
             update.effective_message.reply_text(
-                "Contact me in PM first to get donation information.")
+                "İanə haqqında məlumat almaq üçün əvvəlcə mənimlə əlaqə saxlayın.")
 
 
 def migrate_chats(update: Update, context: CallbackContext):
