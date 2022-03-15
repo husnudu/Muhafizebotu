@@ -52,34 +52,31 @@ def get_readable_time(seconds: int) -> str:
 
 
 PM_START_TEXT = """
-Salam🥳 {}, mənim adım {}!
-👮🏻‍♀️Mən Telegram qruplarını qorumaq üçün Azərbaycanca Olan Qrup İdarə Botuyam!
- Siz mənim mövcud əmrlər siyahısını /help ilə tapa bilərsiniz.
-
- """
+🙋🏻Salam *{}*, necəsən?🌺
+Mənim adım *Mühafizə Robot* Mən qrup idarəsi üçün çox asan botam🤖
+Hətta Azərbaycan dilində🇦🇿\nMəncə biraz bota göz gəzdir👀🧏
+💁🏻Bütün əmrlər üçün /help yazmaq kifayətdir.
+💰/donate: Sahibə necə bağış etmək barədə məlumat al!
+"""
 
 HELP_STRINGS = """
-Salam!  Mənim adım *{}*.
+🧞‍♂️Xoş gəldiniz! Mənim adım *{}*.
+👮🏻‍♂️Görünür köməyə ehdiyacınız var Məni qrupa əlavə edib admin edin.
 
- *Əsas* əmrlər mövcuddur:
-  • /help: Bu mesajı PM göndərirsiniz.
-  • /help <modul adı>: PM bu modul haqqında məlumatdır.
-  • /donate: ianə vermək haqqında məlumat!
-  • /settings:
-  • PM-də: bütün dəstəklənən modullar üçün parametrlərinizi sizə göndərəcək.
-  • qrupda: bütün söhbət parametrləri ilə sizi pm-ə yönləndirəcək.
-
-
- {}
- Və aşağıdakılar:
+*Əsas* əmrlər:
+ • /help: Modullara kömək menyusu açır.
+ • /settings:
+   • Özəldə: sizə bütün dəstəklənən modullar üçün parametrlərinizi göndərəcəkdir.
+   • Bir qrupda: bütün söhbət parametrləri ilə sizi özələ yönləndirəcəkdir.
+{}
+Və aşağıdakı modullar⬇️:
 """.format(
     dispatcher.bot.first_name, ""
-    if not ALLOW_EXCL else "\nBütün əmrlər / və ya ! ilə istifadə edilə bilər.\n")
+    if not ALLOW_EXCL else "\nBütün əmrlər / və ya ! ilə işlədilir.\n")
 
-SAITAMA_IMG = "https://telegra.ph//file/393802b7af92db6a941e2.jpg"
+SAITAMA_IMG = "https://telegra.ph/file/5680e0fe1cd25684a000a.jpg"
 
-DONATE_STRING = """Hey, ianə vermək istədiyinizi eşitdiyimə şadam!
- Onu dəstəkləmək; [𝗖𝗵𝗼𝗰𝗼𝗹𝗮𝘁𝘆𝗤𝘂𝗲𝗲𝗻](t.me/sangramghangale)"""
+DONATE_STRING = """Zarafat Edirem Bəxşişə Ehtiyac Yoxdur🥰"""
 
 IMPORTED = {}
 MIGRATEABLE = []
@@ -101,7 +98,7 @@ for module_name in ALL_MODULES:
         IMPORTED[imported_module.__mod_name__.lower()] = imported_module
     else:
         raise Exception(
-            "Eyni ada malik iki modul ola bilməz! Zəhmət olmasa birini dəyişdirin")
+            "Eyni adda iki modul ola bilməz! Xahiş edirəm birini dəyişdirin")
 
     if hasattr(imported_module, "__help__") and imported_module.__help__:
         HELPABLE[imported_module.__mod_name__.lower()] = imported_module
@@ -145,7 +142,7 @@ def send_help(chat_id, text, keyboard=None):
 def test(update: Update, context: CallbackContext):
     # pprint(eval(str(update)))
     # update.effective_message.reply_text("Hola tester! _I_ *have* `markdown`", parse_mode=ParseMode.MARKDOWN)
-    update.effective_message.reply_text("This person edited a message")
+    update.effective_message.reply_text("Bu şəxs bir mesajı düzəltdi")
     print(update.effective_message)
 
 
@@ -165,7 +162,7 @@ def start(update: Update, context: CallbackContext):
                     update.effective_chat.id, HELPABLE[mod].__help__,
                     InlineKeyboardMarkup([[
                         InlineKeyboardButton(
-                            text="⬅️ Geri", callback_data="help_back")
+                            text="Geriyə", callback_data="help_back")
                     ]]))
             elif args[0].lower() == "markdownhelp":
                 IMPORTED["extras"].markdown_help_sender(update)
@@ -197,26 +194,26 @@ def start(update: Update, context: CallbackContext):
                 reply_markup=InlineKeyboardMarkup(
                     [[
                         InlineKeyboardButton(
-                            text="✅Məni Qrupa Əlavə Et✅",
+                            text="Məni Qrupa Əlavə Et✅",
                             url="t.me/{}?startgroup=true".format(
                                 context.bot.username))
                     ],
                      [
                          InlineKeyboardButton(
-                             text="Söhbət Qrupu",
-                             url=f"https://t.me/AlmondEyessChat"),
+                             text="📣 Rəsmi Kanalımız",
+                             url=f"https://t.me/AzRobotlar"),
                          InlineKeyboardButton(
-                             text="📘 Kanal",
-                             url="https://t.me/EtirafAzeChannel")
+                             text="💬 Dəstək,Söhbət Qrupu",
+                             url="https://t.me/AzRobotGroup")
                      ],
                      [
                          InlineKeyboardButton(
-                             text="☑️Sahib",
-                             url="https://t.me/HuseynH")
+                             text="🧑🏼‍💻 Bot Qurucu,Sahibi",
+                             url="https://t.me/sirincayboss")
                      ]]))
     else:
         update.effective_message.reply_text(
-            "I'm online!\n<b>Up since:</b> <code>{}</code>".format(uptime),
+            "Mən onlaynam!\n<b>Vaxt :</b> <code>{}</code>".format(uptime),
             parse_mode=ParseMode.HTML)
 
 
@@ -263,7 +260,7 @@ def help_button(update, context):
     try:
         if mod_match:
             module = mod_match.group(1)
-            text = ("Here is the help for the *{}* module:\n".format(
+            text = ("Budur kömək üçün *{}* modul:\n".format(
                 HELPABLE[module].__mod_name__) + HELPABLE[module].__help__)
             query.message.edit_text(
                 text=text,
@@ -271,7 +268,7 @@ def help_button(update, context):
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup([[
                     InlineKeyboardButton(
-                        text="⬅️ Geri", callback_data="help_back")
+                        text="Geriyə", callback_data="help_back")
                 ]]))
 
         elif prev_match:
@@ -315,31 +312,31 @@ def get_help(update: Update, context: CallbackContext):
         if len(args) >= 2 and any(args[1].lower() == x for x in HELPABLE):
             module = args[1].lower()
             update.effective_message.reply_text(
-                f"Kömək almaq üçün PM-də mənimlə əlaqə saxlayın {module.capitalize()}",
+                f"Kömək almaq üçün özəldən-dən mənə müraciət edin {module.capitalize()}",
                 reply_markup=InlineKeyboardMarkup([[
                     InlineKeyboardButton(
-                        text="Help",
+                        text="Kömək",
                         url="t.me/{}?start=ghelp_{}".format(
                             context.bot.username, module))
                 ]]))
             return
         update.effective_message.reply_text(
-            "Mümkün əmrlərin siyahısını əldə etmək üçün PM-də mənimlə əlaqə saxlayın.",
+            "Mümkün əmrlərin siyahısını almaq üçün özəldən-dən mənə müraciət edin.",
             reply_markup=InlineKeyboardMarkup([[
                 InlineKeyboardButton(
-                    text="Əmrlər",
+                    text="Geriyə",
                     url="t.me/{}?start=help".format(context.bot.username))
             ]]))
         return
 
     elif len(args) >= 2 and any(args[1].lower() == x for x in HELPABLE):
         module = args[1].lower()
-        text = "Budur *{}* modulu üçün mövcud yardım:\n".format(HELPABLE[module].__mod_name__) \
+        text = "Budur modul üçün *{}* kömək:\n".format(HELPABLE[module].__mod_name__) \
                + HELPABLE[module].__help__
         send_help(
             chat.id, text,
             InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="⬅️ Geri",
+                [[InlineKeyboardButton(text="Geriyə",
                                        callback_data="help_back")]]))
 
     else:
@@ -360,7 +357,7 @@ def send_settings(chat_id, user_id, user=False):
         else:
             dispatcher.bot.send_message(
                 user_id,
-                "Deyəsən, istifadəçiyə xüsusi parametrlər mövcud deyil :'(",
+                "Mövcud istifadəçi üçün heç bir parametr mövcud deyildir :'(",
                 parse_mode=ParseMode.MARKDOWN)
 
     else:
@@ -368,15 +365,15 @@ def send_settings(chat_id, user_id, user=False):
             chat_name = dispatcher.bot.getChat(chat_id).title
             dispatcher.bot.send_message(
                 user_id,
-                text="Hansı modul üçün {} parametrlərini yoxlamaq istərdiniz?"
+                text="Ayarlarını hansı modul üçün {} yoxlamaq istəyirdin?"
                 .format(chat_name),
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(0, CHAT_SETTINGS, "stngs", chat=chat_id)))
         else:
             dispatcher.bot.send_message(
                 user_id,
-                "Deyəsən heç bir söhbət parametri mövcud deyil :'(\nBunu göndər "
-                 "qrup söhbətində onun cari parametrlərini tapmaq üçün adminsiniz!",
+                "Görünür heç bir söhbət ayarları yoxdur :'(\nHazırkı ayarları "
+                "tapmaq üçün admin olduğunuz bir qrup söhbətində göndərin!",
                 parse_mode=ParseMode.MARKDOWN)
 
 
@@ -394,7 +391,7 @@ def settings_button(update: Update, context: CallbackContext):
             chat_id = mod_match.group(1)
             module = mod_match.group(2)
             chat = bot.get_chat(chat_id)
-            text = "*{}* *{}* modulu üçün aşağıdakı parametrlərə malikdir:\n\n".format(escape_markdown(chat.title),
+            text = "*{}* modul üçün aşağıdakı parametrlərə *{}*  malikdir:\n\n".format(escape_markdown(chat.title),
                                                                                      CHAT_SETTINGS[module].__mod_name__) + \
                    CHAT_SETTINGS[module].__chat_settings__(chat_id, user.id)
             query.message.reply_text(
@@ -402,7 +399,7 @@ def settings_button(update: Update, context: CallbackContext):
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup([[
                     InlineKeyboardButton(
-                        text="⬅️ Geri",
+                        text="Geriyə",
                         callback_data="stngs_back({})".format(chat_id))
                 ]]))
 
@@ -411,8 +408,8 @@ def settings_button(update: Update, context: CallbackContext):
             curr_page = int(prev_match.group(2))
             chat = bot.get_chat(chat_id)
             query.message.reply_text(
-                "Salam! {} üçün kifayət qədər parametrlər var - davam edin və nəyi seçin"
-                 "sizi maraqlandırır.".format(chat.title),
+                "Salam! Kifayət qədər bir neçə parametr var {} -davam edin vəya "
+                "maraqlandığınızı seçin".format(chat.title),
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(
                         curr_page - 1, CHAT_SETTINGS, "stngs", chat=chat_id)))
@@ -422,8 +419,8 @@ def settings_button(update: Update, context: CallbackContext):
             next_page = int(next_match.group(2))
             chat = bot.get_chat(chat_id)
             query.message.reply_text(
-                "Salam! {} üçün kifayət qədər parametrlər var - davam edin və nəyi seçin"
-                 "sizi maraqlandırır.".format(chat.title),
+                "Salam! Kifayət qədər bir neçə parametr var {} - davam edin və "
+                "maraqlandığınızı seçin.".format(chat.title),
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(
                         next_page + 1, CHAT_SETTINGS, "stngs", chat=chat_id)))
@@ -432,8 +429,8 @@ def settings_button(update: Update, context: CallbackContext):
             chat_id = back_match.group(1)
             chat = bot.get_chat(chat_id)
             query.message.reply_text(
-                text="Salam! {} üçün kifayət qədər parametrlər var - davam edin və nəyi seçin"
-                 "sizi maraqlandırır.".format(escape_markdown(chat.title)),
+                text="Salam! Kifayət qədər bir neçə parametr var {} - davam edin və "
+                "maraqlandığınızı seçin.".format(escape_markdown(chat.title)),
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(0, CHAT_SETTINGS, "stngs", chat=chat_id)))
@@ -462,17 +459,17 @@ def get_settings(update: Update, context: CallbackContext):
     # ONLY send settings in PM
     if chat.type != chat.PRIVATE:
         if is_user_admin(chat, user.id):
-            text = "Bu söhbətin, eləcə də sizin parametrlərinizi əldə etmək üçün bura klikləyin."
+            text = "Bu söhbətin, eləcə də sənin ayarlarını almaq üçün buraya vurun.."
             msg.reply_text(
                 text,
                 reply_markup=InlineKeyboardMarkup([[
                     InlineKeyboardButton(
-                        text="Settings",
+                        text="Parametrlər",
                         url="t.me/{}?start=stngs_{}".format(
                             context.bot.username, chat.id))
                 ]]))
         else:
-            text = "Parametrlərinizi yoxlamaq üçün bura klikləyin."
+            text = "Ayarlarınızı yoxlamaq üçün buraya vurun."
 
     else:
         send_settings(chat.id, user.id, True)
@@ -489,10 +486,10 @@ def donate(update: Update, context: CallbackContext):
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True)
 
-        if OWNER_ID != 5074483091 and DONATION_LINK:
+        if OWNER_ID != 254318997 and DONATION_LINK:
             update.effective_message.reply_text(
-                "Hazırda məni idarə edən şəxsə də ianə verə bilərsiniz"
-                 "[burada]({})".format(DONATION_LINK),
+                "Hal-hazırda məni idarə edən şəxsə bağış edə bilərsiniz "
+                "[Bura Bas]({})".format(DONATION_LINK),
                 parse_mode=ParseMode.MARKDOWN)
 
     else:
@@ -504,10 +501,10 @@ def donate(update: Update, context: CallbackContext):
                 disable_web_page_preview=True)
 
             update.effective_message.reply_text(
-                "Yaradıcıma ianə verməklə bağlı sizə PM göndərdim!")
+                "Sahibimə bağışlamaq barədə sizə məlumat verdim!")
         except Unauthorized:
             update.effective_message.reply_text(
-                "İanə haqqında məlumat almaq üçün əvvəlcə mənimlə əlaqə saxlayın.")
+                "Bağış məlumatlarını almaq üçün əvvəlcə mənimlə əlaqə saxlayın.")
 
 
 def migrate_chats(update: Update, context: CallbackContext):
@@ -521,11 +518,11 @@ def migrate_chats(update: Update, context: CallbackContext):
     else:
         return
 
-    LOGGER.info("Migrating from %s, to %s", str(old_chat), str(new_chat))
+    LOGGER.info("Miqrasiya %s, üçün %s", str(old_chat), str(new_chat))
     for mod in MIGRATEABLE:
         mod.__migrate__(old_chat, new_chat)
 
-    LOGGER.info("Successfully migrated!")
+    LOGGER.info("Uğurla köç edildi!")
     raise DispatcherHandlerStop
 
 
