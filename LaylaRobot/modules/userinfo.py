@@ -508,9 +508,7 @@ __help__ = """
 
 *Ümumi məlumatı:*
  • `/info`*:* istifadəçi haqqında ümumi məlumat verir. 
- 
-*HP Sistemi nədir?*
- [HP Sistemi haqqında](https://t.me/AzRobotGroup/495)
+
 """
 
 SET_BIO_HANDLER = DisableAbleCommandHandler("setbio", set_about_bio)
