@@ -6,7 +6,14 @@ from telegram import Update
 from telegram.ext import CallbackContext, run_async
 
 reactions = [
-    "Şəhid Adları Modulu Aktif Deyildir😊\nYaxın Zamanda Aktif Olacaqdır🌹\n@AzRobotlar Kanala Qatılıb Botlarla Bağlı🤖\nYeni Xəbərləri Qaçırmayın✅",
+    "əsgər Abakarov Nail Müzəffər 24.07.2001",
+    "əsgər Abasov Ağababa Səfər 14.03.2002",
+    "MAHHXHQ əsgər Abasov Ayaz Nizami 20.12.1998"
+    "kiçik gizir Abasov Davud Yalçın 19.11.1999"
+    "əsgər Abasov Elvin Səxavət 17.06.1993"
+    "əsgər Abasov Ruslan Hikmət 24.05.2000"
+    "əsgər Abasov Samir Adəm 24.08.2001"
+    "kiçik çavuş Abasov Seymur Adil 10.08.1999"
     
 ]
 
